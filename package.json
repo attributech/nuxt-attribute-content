@@ -12,6 +12,7 @@
     "lint": "eslint ."
   },
   "devDependencies": {
+    "@nuxt/content": "3.6.3",
     "@nuxt/eslint": "latest",
     "eslint": "^9.34.0",
     "nuxt": "^4.0.3",
