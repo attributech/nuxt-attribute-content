@@ -1,7 +1,5 @@
-import { queryCollection, useAsyncData } from '@nuxt/content'
-
-export default function () {
-  async function fetchMenuItems(menu) {
+export default function useMenuItems() {
+  async function fetchMenuItems(menu: string) {
     return await queryCollection('menu')
       .where('stem', '=', `menu/${menu}`)
       .first()
@@ -10,7 +8,7 @@ export default function () {
     return await queryCollection('menu').all()
   }
 
-  async function fetchMenuItemsAsync(menu) {
+  async function fetchMenuItemsAsync(menu: string) {
     const path = `menu/${menu}`
     return await useAsyncData(
       path,
