@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-const { attributeContent } = useAppConfig();
+const { attributeContent } = useAppConfig()
 </script>

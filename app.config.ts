@@ -1,14 +1,14 @@
 export default defineAppConfig({
   attributeContent: {
-    name: "Nuxt Attribute Content",
+    name: 'Nuxt Attribute Content',
   },
-});
+})
 
-declare module "@nuxt/schema" {
+declare module '@nuxt/schema' {
   interface AppConfigInput {
     attributeContent?: {
       /** Project name */
-      name?: string;
-    };
+      name?: string
+    }
   }
 }

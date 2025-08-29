@@ -1,27 +1,30 @@
 <template>
-  <div class="icon" :class="classObject">
+  <div
+    class="icon"
+    :class="classObject"
+  >
     <SpriteSymbol :name="name" />
   </div>
 </template>
 
 <script setup lang="ts">
 export interface Props {
-  name: string;
-  fill?: boolean;
-  modifier?: string;
+  name: string
+  fill?: boolean
+  modifier?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   fill: false,
-});
+})
 
 const classObject = reactive({
   [`icon--${props.name}`]: true,
-  "icon--fill": props.fill,
-});
+  'icon--fill': props.fill,
+})
 
 if (props.modifier) {
-  classObject[`icon--${props.modifier}`] = true;
+  classObject[`icon--${props.modifier}`] = true
 }
 </script>
 

@@ -1,5 +1,5 @@
 export default defineAppConfig({
   attributeContent: {
-    name: "Nuxt Attribute Content (overwritten)",
+    name: 'Nuxt Attribute Content (overwritten)',
   },
-});
+})
