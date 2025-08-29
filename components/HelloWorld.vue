@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const { myLayer } = useAppConfig()
+const { attributeContent } = useAppConfig();
 </script>
 
 <template>
   <div>
     <h1>Hello World!</h1>
-    <pre>{{ myLayer }}</pre>
+    <pre>{{ attributeContent }}</pre>
   </div>
 </template>

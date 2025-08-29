@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  myLayer: {
-    name: 'My amazing Nuxt layer (overwritten)'
-  }
-})
+  attributeContent: {
+    name: "Nuxt Attribute Content (overwritten)",
+  },
+});
