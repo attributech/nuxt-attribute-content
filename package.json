@@ -30,6 +30,7 @@
     "vue-tsc": "^3.0.6"
   },
   "dependencies": {
+    "@nuxt/image": "^1.11.0",
     "lazysizes": "^5.3.2",
     "markdown-it": "^14.1.0",
     "nuxt-svg-icon-sprite": "2.0.2"
