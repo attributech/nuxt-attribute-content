@@ -1,0 +1,21 @@
+title: Front
+metatags:
+  title: Test Meta Title
+  description: Test Meta Description
+content:
+  - type: section
+    title: Test
+    items:
+      - type: text
+        text: |-
+          Lorem\
+          Ispum\
+          Dolor\
+          Sit\
+          Amet
+
+          Lorem\
+          Ispum\
+          Dolor\
+          Sit\
+          Amet

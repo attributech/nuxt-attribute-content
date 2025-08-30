@@ -1,0 +1,8 @@
+title: Main
+items:
+  - title: Home
+    path: /
+  - title: About
+    path: /
+  - title: Contact
+    path: /
