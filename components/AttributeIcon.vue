@@ -28,9 +28,7 @@ if (props.modifier) {
 }
 </script>
 
-<style lang="scss">
-@use "~/assets/sass/tools";
-
+<style>
 .icon {
   width: var(--icon-size--s);
   height: var(--icon-size--s);
