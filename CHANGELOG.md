@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.3
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.2...v0.0.3)
+
+### 🩹 Fixes
+
+- Adding missing dependency on nuxt-svg-icon-sprite ([94ce3c0](https://github.com/attributech/nuxt-attribute-content/commit/94ce3c0))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.2
 
 
