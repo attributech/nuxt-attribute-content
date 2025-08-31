@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { setup, $fetch } from '@nuxt/test-utils/e2e'
+import { setup, $fetch, createPage } from '@nuxt/test-utils/e2e'
 
 describe('AttributeIcon E2E Tests', async () => {
   await setup({
@@ -69,5 +69,84 @@ describe('AttributeIcon E2E Tests', async () => {
     // Check for proper HTML structure
     expect(html).toContain('Basic Usage')
     expect(html).toContain('icon-grid')
+  })
+
+  it('should render icons with different size classes', async () => {
+    const html = await $fetch('/icon')
+
+    // Check that size-specific CSS classes are applied
+    expect(html).toContain('icon--size-s')
+    expect(html).toContain('icon--size-m')
+    expect(html).toContain('icon--size-l')
+  })
+
+  it('should display size sections with proper headings', async () => {
+    const html = await $fetch('/icon')
+
+    // Check that size sections exist
+    expect(html).toContain('Sizes')
+    expect(html).toContain('>s</h3>')
+    expect(html).toContain('>m</h3>')
+    expect(html).toContain('>l</h3>')
+  })
+
+  it('should render icons with correct actual dimensions', async () => {
+    const page = await createPage('/icon')
+
+    try {
+      // Wait for the page to load
+      await page.waitForSelector('.icon--size-s')
+
+      // Get the computed dimensions for each size
+      const smallIconSize = await page.evaluate(() => {
+        const element = document.querySelector('.icon--size-s')
+        if (!element) return null
+        const styles = window.getComputedStyle(element)
+        return {
+          width: Number.parseInt(styles.width),
+          height: Number.parseInt(styles.height),
+        }
+      })
+
+      const mediumIconSize = await page.evaluate(() => {
+        const element = document.querySelector('.icon--size-m')
+        if (!element) return null
+        const styles = window.getComputedStyle(element)
+        return {
+          width: Number.parseInt(styles.width),
+          height: Number.parseInt(styles.height),
+        }
+      })
+
+      const largeIconSize = await page.evaluate(() => {
+        const element = document.querySelector('.icon--size-l')
+        if (!element) return null
+        const styles = window.getComputedStyle(element)
+        return {
+          width: Number.parseInt(styles.width),
+          height: Number.parseInt(styles.height),
+        }
+      })
+
+      // Verify the actual dimensions match expected sizes
+      expect(smallIconSize).toBeTruthy()
+      expect(smallIconSize!.width).toBe(18)
+      expect(smallIconSize!.height).toBe(18)
+
+      expect(mediumIconSize).toBeTruthy()
+      expect(mediumIconSize!.width).toBe(32)
+      expect(mediumIconSize!.height).toBe(32)
+
+      expect(largeIconSize).toBeTruthy()
+      expect(largeIconSize!.width).toBe(64)
+      expect(largeIconSize!.height).toBe(64)
+
+      // Verify size progression (small < medium < large)
+      expect(smallIconSize!.width).toBeLessThan(mediumIconSize!.width)
+      expect(mediumIconSize!.width).toBeLessThan(largeIconSize!.width)
+    }
+    finally {
+      await page.close()
+    }
   })
 })

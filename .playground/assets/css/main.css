@@ -1,3 +1,9 @@
+:root {
+  --icon-size--s: 18px;
+  --icon-size--m: 32px;
+  --icon-size--l: 64px;
+}
+
 img {
   display: block;
   width: 100%;

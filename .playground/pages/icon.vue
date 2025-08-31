@@ -14,6 +14,42 @@
         </div>
       </div>
     </section>
+    <section>
+      <h2>Sizes</h2>
+      <h3>s</h3>
+      <div class="icon-grid">
+        <div class="icon-item">
+          <AttributeIcon name="arrow-left" size="s" />
+          <span>arrow-left</span>
+        </div>
+        <div class="icon-item">
+          <AttributeIcon name="arrow-right" size="s" />
+          <span>arrow-right</span>
+        </div>
+      </div>
+      <h3>m</h3>
+      <div class="icon-grid">
+        <div class="icon-item">
+          <AttributeIcon name="arrow-left" size="m" />
+          <span>arrow-left</span>
+        </div>
+        <div class="icon-item">
+          <AttributeIcon name="arrow-right" size="m" />
+          <span>arrow-right</span>
+        </div>
+      </div>
+      <h3>l</h3>
+      <div class="icon-grid">
+        <div class="icon-item">
+          <AttributeIcon name="arrow-left" size="l" />
+          <span>arrow-left</span>
+        </div>
+        <div class="icon-item">
+          <AttributeIcon name="arrow-right" size="l" />
+          <span>arrow-right</span>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
