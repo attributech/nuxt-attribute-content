@@ -4,6 +4,12 @@ import { removeSizes, forceCurrentColor } from 'nuxt-svg-icon-sprite/processors'
 export default defineNuxtConfig({
   modules: ['nuxt-svg-icon-sprite', '@nuxt/content', '@nuxt/image'],
   devtools: { enabled: true },
+  postcss: {
+    plugins: {
+      'postcss-nested': {},
+      'postcss-custom-media': {},
+    },
+  },
   image: {
     screens: {
       xs: 320,

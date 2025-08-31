@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="icon"
-    :class="classObject"
-  >
+  <div class="icon" :class="classObject">
     <SpriteSymbol :name="name" />
   </div>
 </template>
@@ -28,7 +25,7 @@ if (props.modifier) {
 }
 </script>
 
-<style>
+<style lang="postcss">
 .icon {
   width: var(--icon-size--s);
   height: var(--icon-size--s);
@@ -40,21 +37,6 @@ if (props.modifier) {
     width: 100%;
     height: 100%;
     margin-bottom: 0;
-  }
-
-  &--logo {
-    svg {
-      width: var(--icon-size--logo);
-      height: auto;
-    }
-  }
-
-  &--fill {
-    svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
   }
 }
 </style>
