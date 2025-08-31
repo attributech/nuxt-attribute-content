@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.0.5
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.3...v0.0.5)
+
+### 🩹 Fixes
+
+- Adding @nuxt/image as a dependency ([5d7d9ed](https://github.com/attributech/nuxt-attribute-content/commit/5d7d9ed))
+- Fixing postcss setup ([e6c9cac](https://github.com/attributech/nuxt-attribute-content/commit/e6c9cac))
+- Adding happy-dom as a dependency ([59cbe13](https://github.com/attributech/nuxt-attribute-content/commit/59cbe13))
+- Setting nuxt compatibilityDate ([b11db17](https://github.com/attributech/nuxt-attribute-content/commit/b11db17))
+
+### 🏡 Chore
+
+- **release:** V0.0.4 ([13db56c](https://github.com/attributech/nuxt-attribute-content/commit/13db56c))
+
+### ✅ Tests
+
+- Adding a page in playground and e2e tests for AttributeResponsiveImage ([27b2aae](https://github.com/attributech/nuxt-attribute-content/commit/27b2aae))
+- Adding e2e tests for new playground pages ([ade407a](https://github.com/attributech/nuxt-attribute-content/commit/ade407a))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.4
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.3...v0.0.4)
