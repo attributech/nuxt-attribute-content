@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.3...v0.0.4)
+
+### 🩹 Fixes
+
+- Adding @nuxt/image as a dependency ([9680a99](https://github.com/attributech/nuxt-attribute-content/commit/9680a99))
+- Fixing postcss setup ([857d0c6](https://github.com/attributech/nuxt-attribute-content/commit/857d0c6))
+
+### ✅ Tests
+
+- Adding a page in playground and e2e tests for AttributeResponsiveImage ([c7f7633](https://github.com/attributech/nuxt-attribute-content/commit/c7f7633))
+- Adding e2e tests for new playground pages ([ddb20dd](https://github.com/attributech/nuxt-attribute-content/commit/ddb20dd))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.3
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.2...v0.0.3)
