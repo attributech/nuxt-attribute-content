@@ -3,16 +3,27 @@
     <h1>useRenderedMarkdown()</h1>
     <section>
       <h2>Rendered Markdown from Content</h2>
-      <div class="rendered-content" v-html="renderedMarkdown(text)" />
+      <div
+        class="rendered-content"
+        v-html="renderedMarkdown(text)"
+      />
     </section>
 
     <section>
       <h2>Custom Markdown Example</h2>
       <div class="markdown-demo">
         <h3>Input:</h3>
-        <textarea v-model="customMarkdown" rows="6" cols="50" placeholder="Enter your markdown here..." />
+        <textarea
+          v-model="customMarkdown"
+          rows="6"
+          cols="50"
+          placeholder="Enter your markdown here..."
+        />
         <h3>Output:</h3>
-        <div class="rendered-content" v-html="renderedMarkdown(customMarkdown)" />
+        <div
+          class="rendered-content"
+          v-html="renderedMarkdown(customMarkdown)"
+        />
       </div>
     </section>
 

@@ -4,7 +4,10 @@
     <section>
       <h2>Main Menu Items</h2>
       <ul v-if="main?.items && main.items.length > 0">
-        <li v-for="item in main.items" :key="item.path">
+        <li
+          v-for="item in main.items"
+          :key="item.path"
+        >
           <a :href="item.path">{{ item.title }}</a>
         </li>
       </ul>

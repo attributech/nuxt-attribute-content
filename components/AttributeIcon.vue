@@ -1,5 +1,8 @@
 <template>
-  <div class="icon" :class="classObject">
+  <div
+    class="icon"
+    :class="classObject"
+  >
     <SpriteSymbol :name="name" />
   </div>
 </template>

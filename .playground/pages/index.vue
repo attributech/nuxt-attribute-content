@@ -5,23 +5,35 @@
 
     <section class="navigation">
       <div class="feature-grid">
-        <a href="/icon" class="feature-card">
+        <a
+          href="/icon"
+          class="feature-card"
+        >
           <AttributeIcon name="arrow-right" />
           <h3>AttributeIcon</h3>
           <p>Icon component with various icon options</p>
         </a>
 
-        <a href="/responsive-image" class="feature-card">
+        <a
+          href="/responsive-image"
+          class="feature-card"
+        >
           <h3>AttributeResponsiveImage</h3>
           <p>Responsive image component with optimized loading</p>
         </a>
 
-        <a href="/menu-items" class="feature-card">
+        <a
+          href="/menu-items"
+          class="feature-card"
+        >
           <h3>useMenuItems()</h3>
           <p>Composable for fetching and managing menu items</p>
         </a>
 
-        <a href="/rendered-markdown" class="feature-card">
+        <a
+          href="/rendered-markdown"
+          class="feature-card"
+        >
           <h3>useRenderedMarkdown()</h3>
           <p>Composable for rendering markdown content</p>
         </a>
