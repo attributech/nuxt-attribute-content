@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.6
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.5...v0.0.6)
+
+### ✅ Tests
+
+- Fixing TS errors ([942cdec](https://github.com/attributech/nuxt-attribute-content/commit/942cdec))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.5
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.3...v0.0.5)
