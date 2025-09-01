@@ -19,7 +19,7 @@ export interface Props {
   name: string
   fill?: boolean
   inline?: boolean
-  size?: string
+  size?: string | false
   modifier?: string
 }
 
@@ -34,6 +34,10 @@ const classObject = reactive({
   'icon--fill': props.fill,
   [`icon--size-${props.size}`]: true,
 })
+
+if (props.size !== false) {
+  classObject[`icon--${props.size}`] = true
+}
 
 if (props.modifier) {
   classObject[`icon--${props.modifier}`] = true
