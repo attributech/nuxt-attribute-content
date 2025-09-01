@@ -67,6 +67,25 @@
           <span>arrow-right</span>
         </div>
       </div>
+      <section>
+        <h2>Original svg</h2>
+        <div class="icon-grid">
+          <div class="icon-item">
+            <AttributeIcon
+              name="original/arrow-left"
+              inline
+            />
+            <span>arrow-left</span>
+          </div>
+          <div class="icon-item">
+            <AttributeIcon
+              name="original/arrow-right"
+              inline
+            />
+            <span>arrow-right</span>
+          </div>
+        </div>
+      </section>
     </section>
   </div>
 </template>

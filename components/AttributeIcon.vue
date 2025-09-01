@@ -1,6 +1,16 @@
 <template>
-  <div class="icon" :class="classObject">
-    <SpriteSymbol :name="name as any" />
+  <div
+    class="icon"
+    :class="classObject"
+  >
+    <SpriteSymbol
+      v-if="!inline"
+      :name="name as any"
+    />
+    <SpriteSymbolInline
+      v-else
+      :name="name as any"
+    />
   </div>
 </template>
 
@@ -8,12 +18,14 @@
 export interface Props {
   name: string
   fill?: boolean
+  inline?: boolean
   size?: string
   modifier?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   fill: false,
+  inline: false,
   size: 'm',
 })
 
