@@ -55,7 +55,7 @@ describe('AttributeIcon E2E Tests', async () => {
   })
 
   it('should render multiple icon items in the grid', async () => {
-    const html = await $fetch('/icon')
+    const html = await $fetch<string>('/icon')
 
     // Count the number of icon items (should be at least 2)
     const iconItemMatches = html.match(/class="[^"]*icon-item[^"]*"/g)

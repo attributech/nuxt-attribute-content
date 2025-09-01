@@ -224,9 +224,9 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
       // Check specific config values from the plugin
       const configValues = await page.evaluate(() => {
         return {
-          expFactor: window.lazySizesConfig.expFactor,
-          loadMode: window.lazySizesConfig.loadMode,
-          loadHidden: window.lazySizesConfig.loadHidden,
+          expFactor: window.lazySizesConfig?.expFactor,
+          loadMode: window.lazySizesConfig?.loadMode,
+          loadHidden: window.lazySizesConfig?.loadHidden,
         }
       })
 
@@ -249,13 +249,13 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
       const currentSrc = await img.evaluate(el => (el as HTMLImageElement).currentSrc)
 
       // Extract the width from the loaded image URL
-      const widthMatch = currentSrc.match(/w_(\d+)/)
-      const loadedWidth = widthMatch ? Number.parseInt(widthMatch[1]) : 0
+      const widthMatch = currentSrc?.match(/w_(\d+)/)
+      const loadedWidth = widthMatch && widthMatch[1] ? Number.parseInt(widthMatch[1]) : 0
 
       // At 1920px viewport, should load exactly the 1920w image
       expect(loadedWidth).toBe(1920)
-      expect(currentSrc).toContain('f_webp')
-      expect(currentSrc).toContain('q_60')
+      expect(currentSrc || '').toContain('f_webp')
+      expect(currentSrc || '').toContain('q_60')
 
       await page.close()
     })
@@ -272,13 +272,13 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
       const currentSrc = await img.evaluate(el => (el as HTMLImageElement).currentSrc)
 
       // Extract the width from the loaded image URL
-      const widthMatch = currentSrc.match(/w_(\d+)/)
-      const loadedWidth = widthMatch ? Number.parseInt(widthMatch[1]) : 0
+      const widthMatch = currentSrc?.match(/w_(\d+)/)
+      const loadedWidth = widthMatch && widthMatch[1] ? Number.parseInt(widthMatch[1]) : 0
 
       // At 720px viewport, should load exactly the 1280w image
       expect(loadedWidth).toBe(1280)
-      expect(currentSrc).toContain('f_webp')
-      expect(currentSrc).toContain('q_60')
+      expect(currentSrc || '').toContain('f_webp')
+      expect(currentSrc || '').toContain('q_60')
 
       await page.close()
     })

@@ -7,7 +7,7 @@ describe('Menu Items E2E Tests', async () => {
   })
 
   it('should render the menu-items page', async () => {
-    const html = await $fetch('/menu-items')
+    const html = await $fetch<string>('/menu-items')
 
     // Check that the page renders with correct heading
     expect(html).toContain('useMenuItems()')
@@ -15,7 +15,7 @@ describe('Menu Items E2E Tests', async () => {
   })
 
   it('should display menu items section', async () => {
-    const html = await $fetch('/menu-items')
+    const html = await $fetch<string>('/menu-items')
 
     // Check that menu sections are present
     expect(html).toContain('Main Menu Items')
@@ -23,7 +23,7 @@ describe('Menu Items E2E Tests', async () => {
   })
 
   it('should render menu items if they exist', async () => {
-    const html = await $fetch('/menu-items')
+    const html = await $fetch<string>('/menu-items')
 
     // Check for menu structure (either items or no items message)
     const hasMenuItems = html.includes('<ul') && html.includes('<li')
@@ -50,7 +50,7 @@ describe('Menu Items E2E Tests', async () => {
   })
 
   it('should handle menu items with proper links', async () => {
-    const html = await $fetch('/menu-items')
+    const html = await $fetch<string>('/menu-items')
 
     // If menu items exist, they should have proper link structure
     if (html.includes('<ul') && html.includes('<li')) {
@@ -85,7 +85,7 @@ describe('Menu Items E2E Tests', async () => {
   })
 
   it('should handle empty or undefined menu data gracefully', async () => {
-    const html = await $fetch('/menu-items')
+    const html = await $fetch<string>('/menu-items')
 
     // The page should render even if no menu data is available
     expect(html).toContain('useMenuItems()')

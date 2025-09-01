@@ -1,4 +1,4 @@
-import { useNuxtApp } from '#app'
+import { useNuxtApp } from 'nuxt/app'
 
 interface MarkdownRenderer {
   render(text: string): string

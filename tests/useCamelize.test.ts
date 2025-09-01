@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import useCamelize from '~/composables/useCamelize'
+import useCamelize from '../composables/useCamelize'
 
 describe('useCamelize', () => {
   const { camelize, toPascalCase, capitalizeFirstLetter } = useCamelize()
@@ -34,11 +34,11 @@ describe('useCamelize', () => {
     })
 
     it('should handle non-string inputs gracefully', () => {
-      // @ts-expect-error Testing runtime behavior
+      // @ts-expect-error Testing runtime behavior with null
       expect(toPascalCase(null)).toBe('')
-      // @ts-expect-error Testing runtime behavior
+      // @ts-expect-error Testing runtime behavior with undefined
       expect(toPascalCase(undefined)).toBe('')
-      // @ts-expect-error Testing runtime behavior
+      // @ts-expect-error Testing runtime behavior with number
       expect(toPascalCase(123)).toBe('')
     })
   })
