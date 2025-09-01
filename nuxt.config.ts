@@ -32,6 +32,9 @@ export default defineNuxtConfig({
         importPatterns: ['./assets/icons/*.svg'],
         processSpriteSymbol: [removeSizes(), forceCurrentColor()],
       },
+      original: {
+        importPatterns: ['./assets/icons/**/*.svg'],
+      },
     },
   },
 })
