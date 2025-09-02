@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.8
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.7...v0.0.8)
+
+### 🩹 Fixes
+
+- **images:** Splitting lazysizes into two plugins to fix ESM issue ([daf8154](https://github.com/attributech/nuxt-attribute-content/commit/daf8154))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.7
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.6...v0.0.7)
