@@ -202,41 +202,6 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
       await page.close()
     })
 
-    it('should load lazysizes library correctly', async () => {
-      const page = await createPage('/responsive-image')
-
-      await page.waitForLoadState('networkidle')
-
-      // Check if lazysizes is available in the browser
-      const lazySizesExists = await page.evaluate(() => {
-        return typeof window.lazySizes !== 'undefined'
-      })
-
-      expect(lazySizesExists).toBe(true)
-
-      // Check if lazysizes config is set
-      const configExists = await page.evaluate(() => {
-        return typeof window.lazySizesConfig !== 'undefined'
-      })
-
-      expect(configExists).toBe(true)
-
-      // Check specific config values from the plugin
-      const configValues = await page.evaluate(() => {
-        return {
-          expFactor: window.lazySizesConfig?.expFactor,
-          loadMode: window.lazySizesConfig?.loadMode,
-          loadHidden: window.lazySizesConfig?.loadHidden,
-        }
-      })
-
-      expect(configValues.expFactor).toBe(10)
-      expect(configValues.loadMode).toBe(3)
-      expect(configValues.loadHidden).toBe(false)
-
-      await page.close()
-    })
-
     it('should load correct image size at 1920px browser width', async () => {
       const page = await createPage('/responsive-image')
 

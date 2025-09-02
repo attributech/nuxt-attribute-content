@@ -17,12 +17,12 @@ importers:
       happy-dom:
         specifier: ^18.0.1
         version: 18.0.1
-      lazysizes:
-        specifier: ^5.3.2
-        version: 5.3.2
       markdown-it:
         specifier: ^14.1.0
         version: 14.1.0
+      nuxt-lazyimages:
+        specifier: ^0.2.1
+        version: 0.2.1(magicast@0.3.5)
       nuxt-svg-icon-sprite:
         specifier: 2.0.2
         version: 2.0.2
@@ -3574,9 +3574,6 @@ packages:
   launch-editor@2.11.1:
     resolution: {integrity: sha512-SEET7oNfgSaB6Ym0jufAdCeo3meJVeCaaDyzRygy0xsp2BFKCprcfHljTq4QkzTLUxEKkFK6OK4811YM2oSrRg==}
 
-  lazysizes@5.3.2:
-    resolution: {integrity: sha512-22UzWP+Vedi/sMeOr8O7FWimRVtiNJV2HCa+V8+peZOw6QbswN9k58VUhd7i6iK5bw5QkYrF01LJbeJe0PV8jg==}
-
   lazystream@1.0.1:
     resolution: {integrity: sha512-b94GiNHQNy6JNTrt5w6zNyffMrNkXZb3KTkCZJb2V1xaEGCk093vkZ2jk3tpaeP33/OiXC+WvK9AxUebnf5nbw==}
     engines: {node: '>= 0.6.3'}
@@ -4118,6 +4115,9 @@ packages:
   nuxt-component-meta@0.12.2:
     resolution: {integrity: sha512-cosF2jUd47TnN7Y8PsRfzdsVomHpVxVjZZIDgyaPqe+wnl2Ys5LXMUt+K3CpXrJrGRFlDRP6ux47Ukevf9juVQ==}
     hasBin: true
+
+  nuxt-lazyimages@0.2.1:
+    resolution: {integrity: sha512-eKXtTPYyaHGcOcU/j1KSd4d9XV92owk9Xfhk8IjEv9Xl4JNkwXdlkOJ1UorosaQhIVJP6aHjNmaRDD0vILhRLQ==}
 
   nuxt-svg-icon-sprite@2.0.2:
     resolution: {integrity: sha512-bzLBFh5C3TJksraicVQFQpCozTLtycOQg3mVlRzuWGqxj+biRR0TxBwjcPbCgkWD+fLVz8KGnQBYCuwsgJtaLg==}
@@ -9627,8 +9627,6 @@ snapshots:
       picocolors: 1.1.1
       shell-quote: 1.8.3
 
-  lazysizes@5.3.2: {}
-
   lazystream@1.0.1:
     dependencies:
       readable-stream: 2.3.8
@@ -10414,6 +10412,12 @@ snapshots:
       typescript: 5.9.2
       ufo: 1.6.1
       vue-component-meta: 3.0.6(typescript@5.9.2)
+    transitivePeerDependencies:
+      - magicast
+
+  nuxt-lazyimages@0.2.1(magicast@0.3.5):
+    dependencies:
+      '@nuxt/kit': 3.18.1(magicast@0.3.5)
     transitivePeerDependencies:
       - magicast
 
