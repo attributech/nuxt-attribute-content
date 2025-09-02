@@ -1,6 +1,34 @@
 # Changelog
 
 
+## v0.0.9
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.5...v0.0.9)
+
+### 🚀 Enhancements
+
+- **icons:** Adding svg sprite for original untouched icons and inlining icons ([b50d2e9](https://github.com/attributech/nuxt-attribute-content/commit/b50d2e9))
+- **icons:** Making it possible to not set a size on icons ([0587e81](https://github.com/attributech/nuxt-attribute-content/commit/0587e81))
+
+### 🩹 Fixes
+
+- **images:** Splitting lazysizes into two plugins to fix ESM issue ([b870c53](https://github.com/attributech/nuxt-attribute-content/commit/b870c53))
+- Adding @nuxt/content as dependency ([166a516](https://github.com/attributech/nuxt-attribute-content/commit/166a516))
+
+### 🏡 Chore
+
+- **release:** V0.0.6 ([d345662](https://github.com/attributech/nuxt-attribute-content/commit/d345662))
+- **release:** V0.0.7 ([fc5117a](https://github.com/attributech/nuxt-attribute-content/commit/fc5117a))
+- **release:** V0.0.8 ([ebbd9b9](https://github.com/attributech/nuxt-attribute-content/commit/ebbd9b9))
+
+### ✅ Tests
+
+- Fixing TS errors ([942cdec](https://github.com/attributech/nuxt-attribute-content/commit/942cdec))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.8
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.7...v0.0.8)
