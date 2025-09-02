@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.10
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.9...v0.0.10)
+
+### 🩹 Fixes
+
+- **images:** Replace custom lazysizes implementation with nuxt-lazyimages ([3907fcc](https://github.com/attributech/nuxt-attribute-content/commit/3907fcc))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.9
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.5...v0.0.9)
