@@ -20,8 +20,6 @@ env:
 
 jobs:
   lint:
-    # autofix workflow will be triggered instead for PRs
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
