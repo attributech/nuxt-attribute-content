@@ -20,6 +20,7 @@ describe('Playground E2E Tests', async () => {
     // Check that navigation links are present
     expect(html).toContain('href="/icon"')
     expect(html).toContain('href="/responsive-image"')
+    expect(html).toContain('href="/title"')
     expect(html).toContain('href="/menu-items"')
     expect(html).toContain('href="/rendered-markdown"')
   })
@@ -30,6 +31,7 @@ describe('Playground E2E Tests', async () => {
     // Check that feature descriptions are present
     expect(html).toContain('AttributeIcon')
     expect(html).toContain('AttributeResponsiveImage')
+    expect(html).toContain('Title Components')
     expect(html).toContain('useMenuItems()')
     expect(html).toContain('useRenderedMarkdown()')
   })
@@ -37,12 +39,24 @@ describe('Playground E2E Tests', async () => {
   it('should render the icon page', async () => {
     const html = await $fetch('/icon')
 
-    // Check that the page renders with correct heading
+    // Check that the icon page renders with correct heading
     expect(html).toContain('&lt;AttributeIcon&gt;')
 
     // Check that AttributeIcon components are rendered
     expect(html).toContain('icon--arrow-left')
     expect(html).toContain('icon--arrow-right')
+  })
+
+  it('should render the title page', async () => {
+    const html = await $fetch('/title')
+
+    // Check that the page renders with correct heading
+    expect(html).toContain('&lt;BlockTitle&gt;')
+
+    // Check that title components are rendered with correct heading levels
+    expect(html).toContain('<h1 class="title title--level-1">Heading 1</h1>')
+    expect(html).toContain('<h2 class="title title--level-2">Heading 2</h2>')
+    expect(html).toContain('<h3 class="title title--level-3">Heading 3</h3>')
   })
 
   it('should render the menu-items page', async () => {
