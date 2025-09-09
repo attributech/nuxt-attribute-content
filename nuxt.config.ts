@@ -2,7 +2,13 @@ import { removeSizes, forceCurrentColor } from 'nuxt-svg-icon-sprite/processors'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['nuxt-svg-icon-sprite', '@nuxt/content', '@nuxt/image', 'nuxt-lazyimages'],
+  modules: [
+    'nuxt-svg-icon-sprite',
+    '@nuxt/content',
+    '@nuxt/image',
+    'nuxt-lazyimages',
+    '@nuxt/eslint',
+  ],
   devtools: { enabled: true },
   compatibilityDate: '2025-09-01',
   postcss: {
