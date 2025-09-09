@@ -52,5 +52,8 @@ jobs:
       - name: Install Playwright Dependencies
         run: pnpm exec playwright install chromium --with-deps
 
+      - name: Prepare dev environment
+        run: pnpm run dev:prepare
+
       - name: Test
         run: pnpm run test
