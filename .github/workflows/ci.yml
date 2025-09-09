@@ -25,16 +25,17 @@ jobs:
     timeout-minutes: 30
 
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
+        env: ["dev", "built"]
+        builder: ["vite"]
+        context: ["async", "default"]
+        payload: ["json", "js"]
         node: ["lts"]
-        # Disabling macos and Windows testing for now.
-        # include:
-        #   - os: macos-latest
-        #     node_version: 22
-        #   - os: windows-latest
-        #     node_version: 22
-      fail-fast: false
+        exclude:
+          - context: "default"
+            payload: "js"
 
     steps:
       - uses: actions/checkout@v4
