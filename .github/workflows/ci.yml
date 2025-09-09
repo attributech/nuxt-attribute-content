@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [22]
+        node: ["lts"]
         # Disabling macos and Windows testing for now.
         # include:
         #   - os: macos-latest
