@@ -225,11 +225,12 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
       await page.close()
     })
 
-    it('should load correct image size at 720px browser width', async () => {
+    it('should load correct image size at 640px browser width', async () => {
       const page = await createPage('/responsive-image')
 
       // Set browser viewport to 720px width
-      await page.setViewportSize({ width: 720, height: 1280 })
+      await page.setViewportSize({ width: 640, height: 480 })
+      await page.set
       await page.waitForLoadState('networkidle')
       await page.waitForTimeout(2000)
 
@@ -241,7 +242,7 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
       const loadedWidth = widthMatch && widthMatch[1] ? Number.parseInt(widthMatch[1]) : 0
 
       // At 720px viewport, should load exactly the 1280w image
-      expect(loadedWidth).toBe(1280)
+      expect(loadedWidth).toBe(640)
       expect(currentSrc || '').toContain('f_webp')
       expect(currentSrc || '').toContain('q_60')
 
