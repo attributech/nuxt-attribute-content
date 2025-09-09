@@ -52,8 +52,8 @@ jobs:
 
       - name: Install Playwright Browsers
         run: |
-          pnpm exec playwright install chromium --with-deps
-          pnpm exec playwright install firefox --with-deps
+          pnpm playwright-core install chromium
+          pnpm playwright-core install firefox
 
       - name: Prepare dev environment
         run: pnpm run dev:prepare
