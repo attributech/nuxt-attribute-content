@@ -1,152 +1,104 @@
 import { describe, it, expect } from 'vitest'
-import { setup, $fetch, createPage } from '@nuxt/test-utils/e2e'
+import { $fetch } from '@nuxt/test-utils/e2e'
+import { setupE2ETests, createTestPage, iconTestUtils } from './utils'
 
 describe('AttributeIcon E2E Tests', async () => {
-  await setup({
-    rootDir: '.playground',
-  })
+  await setupE2ETests()
 
-  it('should render the icon page', async () => {
-    const html = await $fetch('/icon')
+  const ICON_PAGE_PATH = '/icon'
+  let cachedHtml: string
 
-    // Check that the page renders with correct heading
-    expect(html).toContain('&lt;AttributeIcon&gt;')
-    expect(html).toContain('Basic Usage')
-  })
-
-  it('should display arrow-left icon', async () => {
-    const html = await $fetch('/icon')
-
-    // Check that AttributeIcon component is rendered with correct classes
-    expect(html).toContain('icon--arrow-left')
-    expect(html).toContain('arrow-left')
-  })
-
-  it('should display arrow-right icon', async () => {
-    const html = await $fetch('/icon')
-
-    // Check that AttributeIcon component is rendered with correct classes
-    expect(html).toContain('icon--arrow-right')
-    expect(html).toContain('arrow-right')
-  })
-
-  it('should have proper grid layout structure', async () => {
-    const html = await $fetch('/icon')
-
-    // Check that the grid layout elements are present
-    expect(html).toContain('class="icon-grid"')
-    expect(html).toContain('class="icon-item"')
-  })
-
-  it('should display icon names as labels', async () => {
-    const html = await $fetch('/icon')
-
-    // Check that icon names are displayed as labels
-    expect(html).toContain('>arrow-left</span>')
-    expect(html).toContain('>arrow-right</span>')
-  })
-
-  it('should have proper CSS classes for styling', async () => {
-    const html = await $fetch('/icon')
-
-    // Check that styling classes are applied
-    expect(html).toMatch(/class="[^"]*icon-grid[^"]*"/)
-    expect(html).toMatch(/class="[^"]*icon-item[^"]*"/)
-  })
-
-  it('should render multiple icon items in the grid', async () => {
-    const html = await $fetch<string>('/icon')
-
-    // Count the number of icon items (should be at least 2)
-    const iconItemMatches = html.match(/class="[^"]*icon-item[^"]*"/g)
-    expect(iconItemMatches).toBeTruthy()
-    expect(iconItemMatches!.length).toBeGreaterThanOrEqual(2)
-  })
-
-  it('should have proper semantic HTML structure', async () => {
-    const html = await $fetch('/icon')
-
-    // Check for proper HTML structure
-    expect(html).toContain('Basic Usage')
-    expect(html).toContain('icon-grid')
-  })
-
-  it('should render icons with different size classes', async () => {
-    const html = await $fetch('/icon')
-
-    // Check that size-specific CSS classes are applied
-    expect(html).toContain('icon--size-s')
-    expect(html).toContain('icon--size-m')
-    expect(html).toContain('icon--size-l')
-  })
-
-  it('should display size sections with proper headings', async () => {
-    const html = await $fetch('/icon')
-
-    // Check that size sections exist
-    expect(html).toContain('Sizes')
-    expect(html).toContain('>s</h3>')
-    expect(html).toContain('>m</h3>')
-    expect(html).toContain('>l</h3>')
-  })
-
-  it('should render icons with correct actual dimensions', async () => {
-    const page = await createPage('/icon')
-
-    try {
-      // Wait for the page to load
-      await page.waitForSelector('.icon--size-s')
-
-      // Get the computed dimensions for each size
-      const smallIconSize = await page.evaluate(() => {
-        const element = document.querySelector('.icon--size-s')
-        if (!element) return null
-        const styles = window.getComputedStyle(element)
-        return {
-          width: Number.parseInt(styles.width),
-          height: Number.parseInt(styles.height),
-        }
-      })
-
-      const mediumIconSize = await page.evaluate(() => {
-        const element = document.querySelector('.icon--size-m')
-        if (!element) return null
-        const styles = window.getComputedStyle(element)
-        return {
-          width: Number.parseInt(styles.width),
-          height: Number.parseInt(styles.height),
-        }
-      })
-
-      const largeIconSize = await page.evaluate(() => {
-        const element = document.querySelector('.icon--size-l')
-        if (!element) return null
-        const styles = window.getComputedStyle(element)
-        return {
-          width: Number.parseInt(styles.width),
-          height: Number.parseInt(styles.height),
-        }
-      })
-
-      // Verify the actual dimensions match expected sizes
-      expect(smallIconSize).toBeTruthy()
-      expect(smallIconSize!.width).toBe(18)
-      expect(smallIconSize!.height).toBe(18)
-
-      expect(mediumIconSize).toBeTruthy()
-      expect(mediumIconSize!.width).toBe(32)
-      expect(mediumIconSize!.height).toBe(32)
-
-      expect(largeIconSize).toBeTruthy()
-      expect(largeIconSize!.width).toBe(64)
-      expect(largeIconSize!.height).toBe(64)
-
-      // Verify size progression (small < medium < large)
-      expect(smallIconSize!.width).toBeLessThan(mediumIconSize!.width)
-      expect(mediumIconSize!.width).toBeLessThan(largeIconSize!.width)
+  // Cache HTML for multiple tests to avoid repeated fetches
+  const getPageHtml = async () => {
+    if (!cachedHtml) {
+      cachedHtml = await $fetch(ICON_PAGE_PATH)
     }
-    finally {
-      await page.close()
-    }
+    return cachedHtml
+  }
+
+  describe('HTML Structure Tests', () => {
+    it('should render the icon page with correct structure', async () => {
+      const html = await getPageHtml()
+
+      iconTestUtils.assertIconHeading(html, '&lt;AttributeIcon&gt;')
+      iconTestUtils.assertBasicUsageSection(html)
+      iconTestUtils.assertGridLayout(html)
+    })
+
+    it('should display all common icons', async () => {
+      const html = await getPageHtml()
+
+      iconTestUtils.assertIcons(html, iconTestUtils.COMMON_ICON_NAMES)
+      iconTestUtils.assertIconLabels(html, iconTestUtils.COMMON_ICON_NAMES)
+    })
+
+    it('should have proper grid layout and semantic structure', async () => {
+      const html = await getPageHtml()
+
+      iconTestUtils.assertGridLayout(html)
+      iconTestUtils.assertMinimumIconItems(html, 2)
+    })
+
+    it('should render icons with different size classes', async () => {
+      const html = await getPageHtml()
+      const sizes = iconTestUtils.ICON_SIZE_CONFIGS.map(config => config.size)
+
+      iconTestUtils.assertSizeClasses(html, sizes)
+      iconTestUtils.assertSizeSections(html, sizes)
+    })
+  })
+
+  describe('Browser Tests', () => {
+    it('should render icons with correct actual dimensions', async () => {
+      const page = await createTestPage(ICON_PAGE_PATH)
+
+      try {
+        // Test each size configuration
+        for (const config of iconTestUtils.ICON_SIZE_CONFIGS) {
+          await iconTestUtils.verifyIconDimensions(
+            page,
+            config.selector,
+            config.expectedWidth,
+            config.expectedHeight,
+          )
+        }
+      }
+      finally {
+        await page.close()
+      }
+    })
+
+    it('should have proper size progression (small < medium < large)', async () => {
+      const page = await createTestPage(ICON_PAGE_PATH)
+
+      try {
+        await iconTestUtils.verifySizeProgression(
+          page,
+          iconTestUtils.ICON_SIZE_CONFIGS.map(config => ({
+            selector: config.selector,
+            expectedSize: config.expectedWidth,
+          })),
+        )
+      }
+      finally {
+        await page.close()
+      }
+    })
+
+    it('should display icons correctly in all size variants', async () => {
+      const page = await createTestPage(ICON_PAGE_PATH)
+
+      try {
+        // Verify all size selectors exist and are visible
+        for (const config of iconTestUtils.ICON_SIZE_CONFIGS) {
+          const element = page.locator(config.selector).first()
+          const isVisible = await element.isVisible()
+          expect(isVisible).toBe(true)
+        }
+      }
+      finally {
+        await page.close()
+      }
+    })
   })
 })
