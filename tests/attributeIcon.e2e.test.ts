@@ -1,9 +1,8 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { describe, it, expect, afterAll } from 'vitest'
 import { $fetch } from '@nuxt/test-utils/e2e'
 import {
   setupE2ETests,
   createTestPage,
-  getCachedPage,
   cleanupSharedPageCache,
   iconTestUtils,
 } from './utils'
@@ -134,7 +133,7 @@ describe('AttributeIcon E2E Tests', async () => {
           const dimensionPromises = iconTestUtils.ICON_SIZE_CONFIGS.map(async (config) => {
             await page.waitForSelector(config.selector, { timeout: 3000 })
 
-            const dimensions = await page.evaluate((sel) => {
+            const dimensions = await page.evaluate((sel: string) => {
               const element = document.querySelector(sel)
               if (!element) return null
               const styles = window.getComputedStyle(element)

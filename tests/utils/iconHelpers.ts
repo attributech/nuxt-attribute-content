@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import type { Page } from '@playwright/test'
+import type { Page } from 'playwright-core'
 
 /**
  * Standard icon size configurations
@@ -29,7 +29,7 @@ export function assertGridLayout(html: string) {
 export async function verifyIconDimensions(page: Page, selector: string, expectedWidth: number, expectedHeight: number) {
   await page.waitForSelector(selector, { timeout: 3000 })
 
-  const dimensions = await page.evaluate((sel) => {
+  const dimensions = await page.evaluate((sel: string) => {
     const element = document.querySelector(sel)
     if (!element) return null
     const styles = window.getComputedStyle(element)
@@ -54,7 +54,7 @@ export async function verifySizeProgression(page: Page, sizeConfigs: Array<{ sel
 
   // Then verify all dimensions concurrently
   const promises = sizeConfigs.map(async (config) => {
-    const size = await page.evaluate((sel) => {
+    const size = await page.evaluate((sel: string) => {
       const element = document.querySelector(sel)
       if (!element) return 0
       const styles = window.getComputedStyle(element)
@@ -69,7 +69,7 @@ export async function verifySizeProgression(page: Page, sizeConfigs: Array<{ sel
 
   // Verify size progression (each size should be larger than the previous)
   for (let i = 1; i < sizes.length; i++) {
-    expect(sizes[i]).toBeGreaterThan(sizes[i - 1])
+    expect(sizes[i]!).toBeGreaterThan(sizes[i - 1]!)
   }
 }
 
@@ -86,7 +86,7 @@ export async function verifyConcurrentIconSizes(page: Page, sizeConfigs: Array<{
 
   // Then verify all dimensions concurrently
   const promises = sizeConfigs.map(async (config) => {
-    const dimensions = await page.evaluate((sel) => {
+    const dimensions = await page.evaluate((sel: string) => {
       const element = document.querySelector(sel)
       if (!element) return null
       const styles = window.getComputedStyle(element)
@@ -107,6 +107,6 @@ export async function verifyConcurrentIconSizes(page: Page, sizeConfigs: Array<{
 
   // Verify size progression (each size should be larger than the previous)
   for (let i = 1; i < sizes.length; i++) {
-    expect(sizes[i]).toBeGreaterThan(sizes[i - 1])
+    expect(sizes[i]!).toBeGreaterThan(sizes[i - 1]!)
   }
 }

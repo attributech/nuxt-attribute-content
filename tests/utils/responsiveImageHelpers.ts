@@ -1,6 +1,5 @@
 import { expect } from 'vitest'
-import { $fetch } from '@nuxt/test-utils/e2e'
-import type { Page } from '@playwright/test'
+import type { Page } from 'playwright-core'
 
 /**
  * Common responsive image widths used in tests
@@ -102,10 +101,10 @@ export async function verifyLoadedImageWidth(page: Page, expectedWidth: number, 
     return imgEl?.currentSrc || imgEl?.src
   }, { timeout: 5000 })
 
-  const srcValue = await currentSrc.evaluate(src => src)
+  const srcValue = await currentSrc.evaluate((src: string) => src)
 
   // Extract width from URL
-  const widthMatch = srcValue?.match(/w_(\d+)/)
+  const widthMatch = (srcValue as string)?.match(/w_(\d+)/)
   const loadedWidth = widthMatch?.[1] ? Number.parseInt(widthMatch[1]) : 0
 
   expect(loadedWidth).toBe(expectedWidth)

@@ -1,10 +1,9 @@
-import { describe, it, beforeAll, afterAll, expect } from 'vitest'
+import { describe, it, afterAll, expect } from 'vitest'
 import { $fetch } from '@nuxt/test-utils/e2e'
 import {
   setupE2ETests,
   createTestPage,
   runConcurrentViewportTests,
-  getCachedPage,
   cleanupSharedPageCache,
   responsiveImageTestUtils,
 } from './utils'

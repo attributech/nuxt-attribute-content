@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { describe, it, expect, afterAll } from 'vitest'
 import { $fetch } from '@nuxt/test-utils/e2e'
 import { setupE2ETests, cleanupSharedPageCache } from './utils'
 
@@ -65,10 +65,10 @@ describe('Rendered Markdown E2E Tests', async () => {
         '*italic*',
         '- Item 1',
         '```javascript',
-        '[Link example]'
+        '[Link example]',
       ]
 
-      markdownElements.forEach(element => {
+      markdownElements.forEach((element) => {
         expect(html).toContain(element)
       })
     })

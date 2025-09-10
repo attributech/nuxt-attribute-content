@@ -1,11 +1,10 @@
 import { setup, createPage } from '@nuxt/test-utils/e2e'
-import type { Page, BrowserContext } from '@playwright/test'
-import type { SetupOptions } from '@nuxt/test-utils/e2e'
+import type { Page } from 'playwright-core'
 
 /**
  * Common setup configuration for all e2e tests
  */
-export async function setupE2ETests(options: SetupOptions = {}) {
+export async function setupE2ETests(options: Record<string, unknown> = {}) {
   await setup({
     rootDir: '.playground',
     ...options,
@@ -37,7 +36,7 @@ export async function cleanupSharedPageCache() {
     try {
       await page.close()
     }
-    catch (error) {
+    catch {
       // Ignore errors during cleanup
     }
   }
@@ -124,7 +123,7 @@ export async function waitForCondition<T>(
         return result
       }
     }
-    catch (error) {
+    catch {
       // Continue polling on errors
     }
 

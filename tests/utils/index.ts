@@ -8,7 +8,6 @@ import * as iconFunctions from './iconHelpers'
 export {
   setupE2ETests,
   createTestPage,
-  runViewportTests,
   runConcurrentViewportTests,
   getCachedPage,
   cleanupSharedPageCache,

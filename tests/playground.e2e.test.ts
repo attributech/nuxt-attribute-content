@@ -5,7 +5,7 @@ import { setupE2ETests, cleanupSharedPageCache } from './utils'
 describe('Playground E2E Tests', async () => {
   await setupE2ETests()
 
-  let pageCache = new Map<string, string>()
+  const pageCache = new Map<string, string>()
 
   afterAll(async () => {
     await cleanupSharedPageCache()
@@ -15,7 +15,7 @@ describe('Playground E2E Tests', async () => {
   // Cache HTML for multiple tests to avoid repeated fetches
   const getCachedHtml = async (path: string) => {
     if (!pageCache.has(path)) {
-      const html = await $fetch(path)
+      const html = await $fetch(path) as string
       pageCache.set(path, html)
     }
     return pageCache.get(path)!
@@ -38,10 +38,10 @@ describe('Playground E2E Tests', async () => {
         'href="/icon"',
         'href="/responsive-image"',
         'href="/menu-items"',
-        'href="/rendered-markdown"'
+        'href="/rendered-markdown"',
       ]
 
-      expectedLinks.forEach(link => {
+      expectedLinks.forEach((link) => {
         expect(html).toContain(link)
       })
     })
@@ -54,10 +54,10 @@ describe('Playground E2E Tests', async () => {
         'AttributeIcon',
         'AttributeResponsiveImage',
         'useMenuItems()',
-        'useRenderedMarkdown()'
+        'useRenderedMarkdown()',
       ]
 
-      expectedFeatures.forEach(feature => {
+      expectedFeatures.forEach((feature) => {
         expect(html).toContain(feature)
       })
     })
