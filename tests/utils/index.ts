@@ -5,7 +5,14 @@ import * as responsiveImageFunctions from './responsiveImageHelpers'
 // Icon testing - namespaced export
 import * as iconFunctions from './iconHelpers'
 
-export { setupE2ETests, createTestPage, runViewportTests } from './testHelpers'
+export {
+  setupE2ETests,
+  createTestPage,
+  runViewportTests,
+  runConcurrentViewportTests,
+  getCachedPage,
+  cleanupSharedPageCache,
+} from './testHelpers'
 export type { ViewportTestCase } from './testHelpers'
 export const responsiveImageTestUtils = responsiveImageFunctions
 export const iconTestUtils = iconFunctions

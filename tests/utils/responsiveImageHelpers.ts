@@ -154,18 +154,53 @@ export async function verifyImageLoaded(page: Page) {
 
 export async function verifyLoadedImageWidth(page: Page, expectedWidth: number, expectedFormats: string[] = ['f_webp', 'q_60']) {
   const img = await getImageElement(page)
-  await page.waitForTimeout(2000) // Extra wait for responsive loading
 
-  const currentSrc = await img.evaluate(el => (el as HTMLImageElement).currentSrc)
+  // Wait for image to be loaded with a reasonable timeout
+  await img.waitFor({ state: 'attached' })
+  await page.waitForLoadState('networkidle')
+
+  // Use more efficient polling instead of fixed timeout
+  const currentSrc = await page.waitForFunction(() => {
+    const imgEl = document.querySelector('img')
+    return imgEl?.currentSrc || imgEl?.src
+  }, { timeout: 5000 })
+
+  const srcValue = await currentSrc.evaluate(src => src)
 
   // Extract width from URL
-  const widthMatch = currentSrc?.match(/w_(\d+)/)
+  const widthMatch = srcValue?.match(/w_(\d+)/)
   const loadedWidth = widthMatch?.[1] ? Number.parseInt(widthMatch[1]) : 0
 
   expect(loadedWidth).toBe(expectedWidth)
 
   // Verify formats
   expectedFormats.forEach((format) => {
-    expect(currentSrc || '').toContain(format)
+    expect(srcValue || '').toContain(format)
   })
+}
+
+/**
+ * Concurrent viewport testing helper
+ */
+export async function verifyConcurrentViewportLoading(
+  pages: { page: Page, expectedWidth: number, testCase: ViewportTestCase }[],
+) {
+  const promises = pages.map(async ({ page, expectedWidth, testCase }) => {
+    try {
+      await verifyLoadedImageWidth(page, expectedWidth)
+      return { success: true, testCase }
+    }
+    catch (error) {
+      return { success: false, testCase, error }
+    }
+  })
+
+  const results = await Promise.all(promises)
+
+  // Check all results and throw descriptive errors if any failed
+  const failures = results.filter(r => !r.success)
+  if (failures.length > 0) {
+    const failureMessages = failures.map(f => `${f.testCase.description}: ${f.error}`).join('\n')
+    throw new Error(`Viewport tests failed:\n${failureMessages}`)
+  }
 }

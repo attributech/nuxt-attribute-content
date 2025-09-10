@@ -1,6 +1,13 @@
-import { describe, it } from 'vitest'
+import { describe, it, beforeAll, afterAll } from 'vitest'
 import { $fetch } from '@nuxt/test-utils/e2e'
-import { setupE2ETests, createTestPage, runViewportTests, responsiveImageTestUtils } from './utils'
+import {
+  setupE2ETests,
+  createTestPage,
+  runConcurrentViewportTests,
+  getCachedPage,
+  cleanupSharedPageCache,
+  responsiveImageTestUtils,
+} from './utils'
 
 describe('AttributeResponsiveImage E2E Tests', async () => {
   await setupE2ETests({
@@ -11,6 +18,11 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
 
   const RESPONSIVE_IMAGE_PATH = '/responsive-image'
   let cachedHtml: string
+
+  // Cleanup shared resources after all tests
+  afterAll(async () => {
+    await cleanupSharedPageCache()
+  })
 
   // Cache HTML for multiple tests to avoid repeated fetches
   const getPageHtml = async () => {
@@ -59,37 +71,40 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
   })
 
   describe('Lazysizes Browser Tests', () => {
-    it('should load and display images correctly', async () => {
-      const page = await createTestPage(RESPONSIVE_IMAGE_PATH)
+    describe.concurrent('Browser Functionality', () => {
+      it('should load and display images correctly', async () => {
+        const page = await createTestPage(RESPONSIVE_IMAGE_PATH)
 
-      try {
-        await responsiveImageTestUtils.verifyAltText(page, 'Placeholder')
-        await responsiveImageTestUtils.verifyDataSrcset(page, ['test.png', 'f_webp', '320w', '640w', '1280w', 'q_60'])
-        await responsiveImageTestUtils.verifySizesProcessed(page)
-        await responsiveImageTestUtils.verifyDataAttributes(page, {
-          'aspectratio': 'false',
-          'parent-fit': 'false',
-        })
-      }
-      finally {
-        await page.close()
-      }
-    })
+        try {
+          await responsiveImageTestUtils.verifyAltText(page, 'Placeholder')
+          await responsiveImageTestUtils.verifyDataSrcset(page, ['test.png', 'f_webp', '320w', '640w', '1280w', 'q_60'])
+          await responsiveImageTestUtils.verifySizesProcessed(page)
+          await responsiveImageTestUtils.verifyDataAttributes(page, {
+            'aspectratio': 'false',
+            'parent-fit': 'false',
+          })
+        }
+        finally {
+          await page.close()
+        }
+      })
 
-    it('should process images with lazysizes correctly', async () => {
-      const page = await createTestPage(RESPONSIVE_IMAGE_PATH)
+      it('should process images with lazysizes correctly', async () => {
+        const page = await createTestPage(RESPONSIVE_IMAGE_PATH)
 
-      try {
-        await responsiveImageTestUtils.verifyImageLoaded(page)
-      }
-      finally {
-        await page.close()
-      }
+        try {
+          await responsiveImageTestUtils.verifyImageLoaded(page)
+        }
+        finally {
+          await page.close()
+        }
+      })
     })
 
     describe('Viewport Responsive Loading', () => {
-      responsiveImageTestUtils.VIEWPORT_TEST_CASES.forEach((testCase) => {
-        it(`should load correct image size for ${testCase.description}`, async () => {
+      it.concurrent.each(responsiveImageTestUtils.VIEWPORT_TEST_CASES)(
+        'should load correct image size for $description',
+        async (testCase) => {
           const page = await createTestPage(RESPONSIVE_IMAGE_PATH, {
             width: testCase.width,
             height: testCase.height,
@@ -101,20 +116,19 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
           finally {
             await page.close()
           }
-        })
-      })
-    })
-
-    // Alternative approach using the runViewportTests helper
-    it('should load correct image sizes across all viewports', async () => {
-      await runViewportTests(
-        RESPONSIVE_IMAGE_PATH,
-        responsiveImageTestUtils.VIEWPORT_TEST_CASES,
-        async (page, testCase) => {
-          await responsiveImageTestUtils.verifyLoadedImageWidth(page, testCase.expectedImageWidth)
-          await responsiveImageTestUtils.verifyAltText(page, 'Placeholder')
         },
       )
+
+      it('should load correct image sizes across all viewports concurrently', async () => {
+        await runConcurrentViewportTests(
+          RESPONSIVE_IMAGE_PATH,
+          responsiveImageTestUtils.VIEWPORT_TEST_CASES,
+          async (page, testCase) => {
+            await responsiveImageTestUtils.verifyLoadedImageWidth(page, testCase.expectedImageWidth)
+            await responsiveImageTestUtils.verifyAltText(page, 'Placeholder')
+          },
+        )
+      })
     })
   })
 })

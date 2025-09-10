@@ -71,7 +71,7 @@ export function assertMinimumIconItems(html: string, count: number) {
  * Browser-based icon testing utilities
  */
 export async function verifyIconDimensions(page: Page, selector: string, expectedWidth: number, expectedHeight: number) {
-  await page.waitForSelector(selector)
+  await page.waitForSelector(selector, { timeout: 3000 })
 
   const dimensions = await page.evaluate((sel) => {
     const element = document.querySelector(sel)
@@ -89,11 +89,15 @@ export async function verifyIconDimensions(page: Page, selector: string, expecte
 }
 
 export async function verifySizeProgression(page: Page, sizeConfigs: Array<{ selector: string, expectedSize: number }>) {
-  const sizes: number[] = []
+  // Wait for all selectors to be available first
+  await Promise.all(
+    sizeConfigs.map(config =>
+      page.waitForSelector(config.selector, { timeout: 3000 }),
+    ),
+  )
 
-  for (const config of sizeConfigs) {
-    await page.waitForSelector(config.selector)
-
+  // Then verify all dimensions concurrently
+  const promises = sizeConfigs.map(async (config) => {
     const size = await page.evaluate((sel) => {
       const element = document.querySelector(sel)
       if (!element) return 0
@@ -102,8 +106,48 @@ export async function verifySizeProgression(page: Page, sizeConfigs: Array<{ sel
     }, config.selector)
 
     expect(size).toBe(config.expectedSize)
-    sizes.push(size)
+    return size
+  })
+
+  const sizes = await Promise.all(promises)
+
+  // Verify size progression (each size should be larger than the previous)
+  for (let i = 1; i < sizes.length; i++) {
+    expect(sizes[i]).toBeGreaterThan(sizes[i - 1])
   }
+}
+
+/**
+ * Concurrent icon size testing with dimension verification and size progression
+ */
+export async function verifyConcurrentIconSizes(page: Page, sizeConfigs: Array<{ selector: string, expectedWidth: number, expectedHeight: number }>) {
+  // Wait for all selectors to be available first
+  await Promise.all(
+    sizeConfigs.map(config =>
+      page.waitForSelector(config.selector, { timeout: 3000 }),
+    ),
+  )
+
+  // Then verify all dimensions concurrently
+  const promises = sizeConfigs.map(async (config) => {
+    const dimensions = await page.evaluate((sel) => {
+      const element = document.querySelector(sel)
+      if (!element) return null
+      const styles = window.getComputedStyle(element)
+      return {
+        width: Number.parseInt(styles.width),
+        height: Number.parseInt(styles.height),
+      }
+    }, config.selector)
+
+    expect(dimensions).toBeTruthy()
+    expect(dimensions!.width).toBe(config.expectedWidth)
+    expect(dimensions!.height).toBe(config.expectedHeight)
+
+    return dimensions!.width
+  })
+
+  const sizes = await Promise.all(promises)
 
   // Verify size progression (each size should be larger than the previous)
   for (let i = 1; i < sizes.length; i++) {
