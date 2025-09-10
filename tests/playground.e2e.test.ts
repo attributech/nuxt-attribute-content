@@ -1,82 +1,108 @@
-import { describe, it, expect } from 'vitest'
-import { setup, $fetch } from '@nuxt/test-utils/e2e'
+import { describe, it, expect, afterAll } from 'vitest'
+import { $fetch } from '@nuxt/test-utils/e2e'
+import { setupE2ETests, cleanupSharedPageCache } from './utils'
 
 describe('Playground E2E Tests', async () => {
-  await setup({
-    rootDir: '.playground',
+  await setupE2ETests()
+
+  const pageCache = new Map<string, string>()
+
+  afterAll(async () => {
+    await cleanupSharedPageCache()
+    pageCache.clear()
   })
 
-  it('should render the index page as navigation hub', async () => {
-    const html = await $fetch('/')
+  // Cache HTML for multiple tests to avoid repeated fetches
+  const getCachedHtml = async (path: string) => {
+    if (!pageCache.has(path)) {
+      const html = await $fetch(path) as string
+      pageCache.set(path, html)
+    }
+    return pageCache.get(path)!
+  }
 
-    // Check that the page renders
-    expect(html).toContain('Nuxt Attribute Content - Playground')
-    expect(html).toContain('Explore the different components and features')
+  describe.concurrent('Navigation Hub Tests', () => {
+    it('should render the index page as navigation hub', async () => {
+      const html = await getCachedHtml('/')
+
+      // Check that the page renders with proper navigation structure
+      expect(html).toContain('Nuxt Attribute Content - Playground')
+      expect(html).toContain('Explore the different components and features')
+    })
+
+    it('should display all navigation links to feature pages', async () => {
+      const html = await getCachedHtml('/')
+
+      // Check that all navigation links are present (including new /title link)
+      const expectedLinks = [
+        'href="/icon"',
+        'href="/responsive-image"',
+        'href="/title"',
+        'href="/menu-items"',
+        'href="/rendered-markdown"',
+      ]
+
+      expectedLinks.forEach((link) => {
+        expect(html).toContain(link)
+      })
+    })
+
+    it('should display feature descriptions for all components', async () => {
+      const html = await getCachedHtml('/')
+
+      // Check that feature descriptions are present (including Title Components)
+      const expectedFeatures = [
+        'AttributeIcon',
+        'AttributeResponsiveImage',
+        'Title Components',
+        'useMenuItems()',
+        'useRenderedMarkdown()',
+      ]
+
+      expectedFeatures.forEach((feature) => {
+        expect(html).toContain(feature)
+      })
+    })
   })
 
-  it('should display navigation links to feature pages', async () => {
-    const html = await $fetch('/')
+  describe.concurrent('Feature Page Accessibility Tests', () => {
+    it('should render the icon page with core content', async () => {
+      const html = await getCachedHtml('/icon')
 
-    // Check that navigation links are present
-    expect(html).toContain('href="/icon"')
-    expect(html).toContain('href="/responsive-image"')
-    expect(html).toContain('href="/title"')
-    expect(html).toContain('href="/menu-items"')
-    expect(html).toContain('href="/rendered-markdown"')
-  })
+      // Check essential content without redundant icon testing
+      expect(html).toContain('&lt;AttributeIcon&gt;')
+      expect(html).toContain('icon--')
+      expect(html).toContain('icon--arrow-left')
+      expect(html).toContain('icon--arrow-right')
+    })
 
-  it('should display feature descriptions', async () => {
-    const html = await $fetch('/')
+    it('should render the title page', async () => {
+      const html = await getCachedHtml('/title')
 
-    // Check that feature descriptions are present
-    expect(html).toContain('AttributeIcon')
-    expect(html).toContain('AttributeResponsiveImage')
-    expect(html).toContain('Title Components')
-    expect(html).toContain('useMenuItems()')
-    expect(html).toContain('useRenderedMarkdown()')
-  })
+      // Check that the page renders with correct heading
+      expect(html).toContain('&lt;BlockTitle&gt;')
 
-  it('should render the icon page', async () => {
-    const html = await $fetch('/icon')
+      // Check that title components are rendered with correct heading levels
+      expect(html).toContain('<h1 class="title title--level-1">Heading 1</h1>')
+      expect(html).toContain('<h2 class="title title--level-2">Heading 2</h2>')
+      expect(html).toContain('<h3 class="title title--level-3">Heading 3</h3>')
+    })
 
-    // Check that the icon page renders with correct heading
-    expect(html).toContain('&lt;AttributeIcon&gt;')
+    it('should render the menu-items page with core functionality', async () => {
+      const html = await getCachedHtml('/menu-items')
 
-    // Check that AttributeIcon components are rendered
-    expect(html).toContain('icon--arrow-left')
-    expect(html).toContain('icon--arrow-right')
-  })
+      // Check essential functionality
+      expect(html).toContain('useMenuItems()')
+      expect(html).toContain('Main Menu Items')
+    })
 
-  it('should render the title page', async () => {
-    const html = await $fetch('/title')
+    it('should render the rendered-markdown page with core sections', async () => {
+      const html = await getCachedHtml('/rendered-markdown')
 
-    // Check that the page renders with correct heading
-    expect(html).toContain('&lt;BlockTitle&gt;')
-
-    // Check that title components are rendered with correct heading levels
-    expect(html).toContain('<h1 class="title title--level-1">Heading 1</h1>')
-    expect(html).toContain('<h2 class="title title--level-2">Heading 2</h2>')
-    expect(html).toContain('<h3 class="title title--level-3">Heading 3</h3>')
-  })
-
-  it('should render the menu-items page', async () => {
-    const html = await $fetch('/menu-items')
-
-    // Check that the page renders with correct heading
-    expect(html).toContain('useMenuItems()')
-
-    // Check that menu items are rendered if they exist
-    expect(html).toContain('Main Menu Items')
-  })
-
-  it('should render the rendered-markdown page', async () => {
-    const html = await $fetch('/rendered-markdown')
-
-    // Check that the page renders with correct heading
-    expect(html).toContain('useRenderedMarkdown()')
-
-    // Check that markdown sections are present
-    expect(html).toContain('Rendered Markdown from Content')
-    expect(html).toContain('Custom Markdown Example')
+      // Check essential sections
+      expect(html).toContain('useRenderedMarkdown()')
+      expect(html).toContain('Rendered Markdown from Content')
+      expect(html).toContain('Custom Markdown Example')
+    })
   })
 })

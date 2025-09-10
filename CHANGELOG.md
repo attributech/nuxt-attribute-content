@@ -1,6 +1,38 @@
 # Changelog
 
 
+## v0.0.11
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.10...v0.0.11)
+
+### 🚀 Enhancements
+
+- Using @nuxt/eslint module ([52307ff](https://github.com/attributech/nuxt-attribute-content/commit/52307ff))
+
+### 📦 Build
+
+- Update nuxt to 4.1.1 ([11d6ca3](https://github.com/attributech/nuxt-attribute-content/commit/11d6ca3))
+- Adding better-sqlite3 as a dependency ([ec66609](https://github.com/attributech/nuxt-attribute-content/commit/ec66609))
+
+### 🏡 Chore
+
+- Ignoring test coverage report ([024572a](https://github.com/attributech/nuxt-attribute-content/commit/024572a))
+
+### ✅ Tests
+
+- Adding github action to run tests ([9949acc](https://github.com/attributech/nuxt-attribute-content/commit/9949acc))
+- Adding github action to run tests ([#19](https://github.com/attributech/nuxt-attribute-content/pull/19))
+- Refactoring code into separate utilities ([82fac65](https://github.com/attributech/nuxt-attribute-content/commit/82fac65))
+- Optimize performance ([e23bdcc](https://github.com/attributech/nuxt-attribute-content/commit/e23bdcc))
+- Undoing unnecesseary refactoring ([2fa3ab7](https://github.com/attributech/nuxt-attribute-content/commit/2fa3ab7))
+- Adding readme for AI to write better tests in the future. ([dc38faf](https://github.com/attributech/nuxt-attribute-content/commit/dc38faf))
+- Refactoring remaining tests ([556bc19](https://github.com/attributech/nuxt-attribute-content/commit/556bc19))
+- Updating readme for AI. ([f22b6e4](https://github.com/attributech/nuxt-attribute-content/commit/f22b6e4))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.10
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.9...v0.0.10)
