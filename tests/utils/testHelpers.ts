@@ -34,7 +34,12 @@ export async function getCachedPage(path: string): Promise<Page> {
  */
 export async function cleanupSharedPageCache() {
   for (const page of sharedPageCache.values()) {
-    await page.close()
+    try {
+      await page.close()
+    }
+    catch (error) {
+      // Ignore errors during cleanup
+    }
   }
   sharedPageCache.clear()
 }
@@ -63,26 +68,6 @@ export interface ViewportTestCase {
   description: string
 }
 
-export async function runViewportTests(
-  path: string,
-  testCases: ViewportTestCase[],
-  testFn: (page: Page, testCase: ViewportTestCase) => Promise<void>,
-) {
-  for (const testCase of testCases) {
-    const page = await createTestPage(path, {
-      width: testCase.width,
-      height: testCase.height,
-    })
-
-    try {
-      await testFn(page, testCase)
-    }
-    finally {
-      await page.close()
-    }
-  }
-}
-
 /**
  * Run viewport tests concurrently for better performance
  */
@@ -108,4 +93,87 @@ export async function runConcurrentViewportTests(
   })
 
   await Promise.all(promises)
+}
+
+/**
+ * Smart waiting utility that polls for conditions with exponential backoff
+ */
+export async function waitForCondition<T>(
+  condition: () => Promise<T>,
+  options: {
+    timeout?: number
+    interval?: number
+    maxInterval?: number
+    description?: string
+  } = {},
+): Promise<T> {
+  const {
+    timeout = 10000,
+    interval = 100,
+    maxInterval = 1000,
+    description = 'condition',
+  } = options
+
+  const startTime = Date.now()
+  let currentInterval = interval
+
+  while (Date.now() - startTime < timeout) {
+    try {
+      const result = await condition()
+      if (result) {
+        return result
+      }
+    }
+    catch (error) {
+      // Continue polling on errors
+    }
+
+    await new Promise(resolve => setTimeout(resolve, currentInterval))
+    currentInterval = Math.min(currentInterval * 1.2, maxInterval)
+  }
+
+  throw new Error(`Timeout waiting for ${description} after ${timeout}ms`)
+}
+
+/**
+ * Batch operations for better performance
+ */
+export async function batchOperations<T, R>(
+  items: T[],
+  operation: (item: T) => Promise<R>,
+  batchSize: number = 3,
+): Promise<R[]> {
+  const results: R[] = []
+
+  for (let i = 0; i < items.length; i += batchSize) {
+    const batch = items.slice(i, i + batchSize)
+    const batchResults = await Promise.all(batch.map(operation))
+    results.push(...batchResults)
+  }
+
+  return results
+}
+
+/**
+ * Performance monitoring utility for tests
+ */
+export class TestPerformanceMonitor {
+  private startTime: number = 0
+  private metrics: Record<string, number> = {}
+
+  start() {
+    this.startTime = performance.now()
+  }
+
+  mark(label: string) {
+    this.metrics[label] = performance.now() - this.startTime
+  }
+
+  getMetrics() {
+    return { ...this.metrics }
+  }
+
+  logMetrics() {
+    console.log('Test Performance Metrics:', this.metrics)
+  }
 }

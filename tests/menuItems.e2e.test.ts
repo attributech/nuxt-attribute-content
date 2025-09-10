@@ -1,97 +1,67 @@
-import { describe, it, expect } from 'vitest'
-import { setup, $fetch } from '@nuxt/test-utils/e2e'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { $fetch } from '@nuxt/test-utils/e2e'
+import { setupE2ETests, cleanupSharedPageCache } from './utils'
 
 describe('Menu Items E2E Tests', async () => {
-  await setup({
-    rootDir: '.playground',
+  await setupE2ETests()
+
+  const MENU_PAGE_PATH = '/menu-items'
+  let cachedHtml: string
+
+  afterAll(async () => {
+    await cleanupSharedPageCache()
   })
 
-  it('should render the menu-items page', async () => {
-    const html = await $fetch<string>('/menu-items')
-
-    // Check that the page renders with correct heading
-    expect(html).toContain('useMenuItems()')
-    expect(html).toContain('Main Menu Items')
-  })
-
-  it('should display menu items section', async () => {
-    const html = await $fetch<string>('/menu-items')
-
-    // Check that menu sections are present
-    expect(html).toContain('Main Menu Items')
-    expect(html).toContain('Raw Menu Data')
-  })
-
-  it('should render menu items if they exist', async () => {
-    const html = await $fetch<string>('/menu-items')
-
-    // Check for menu structure (either items or no items message)
-    const hasMenuItems = html.includes('<ul') && html.includes('<li')
-    const hasNoItemsMessage = html.includes('No menu items found')
-
-    // One of these should be true
-    expect(hasMenuItems || hasNoItemsMessage).toBe(true)
-  })
-
-  it('should display raw menu data as JSON', async () => {
-    const html = await $fetch('/menu-items')
-
-    // Check that JSON data is displayed
-    expect(html).toMatch(/<pre[^>]*>/)
-    expect(html).toMatch(/<code[^>]*>/)
-  })
-
-  it('should have proper HTML structure for menu items', async () => {
-    const html = await $fetch('/menu-items')
-
-    // Check for proper sections
-    expect(html).toContain('Main Menu Items')
-    expect(html).toContain('Raw Menu Data')
-  })
-
-  it('should handle menu items with proper links', async () => {
-    const html = await $fetch<string>('/menu-items')
-
-    // If menu items exist, they should have proper link structure
-    if (html.includes('<ul') && html.includes('<li')) {
-      expect(html).toContain('<a')
-      expect(html).toContain('href=')
+  // Cache HTML for multiple tests to avoid repeated fetches
+  const getPageHtml = async () => {
+    if (!cachedHtml) {
+      cachedHtml = await $fetch(MENU_PAGE_PATH)
     }
-  })
+    return cachedHtml
+  }
 
-  it('should use useMenuItems composable correctly', async () => {
-    const html = await $fetch('/menu-items')
+  describe.concurrent('HTML Structure and Content Tests', () => {
+    it('should render the menu-items page with correct structure', async () => {
+      const html = await getPageHtml()
 
-    // The page should render without errors, indicating the composable works
-    expect(html).toContain('useMenuItems()')
-    expect(html).not.toContain('Error:')
-    expect(html).not.toContain('TypeError')
-  })
+      // Check that the page renders with correct heading and sections
+      expect(html).toContain('useMenuItems()')
+      expect(html).toContain('Main Menu Items')
+      expect(html).toContain('Raw Menu Data')
+    })
 
-  it('should have proper CSS styling classes', async () => {
-    const html = await $fetch('/menu-items')
+    it('should display menu content correctly', async () => {
+      const html = await getPageHtml()
 
-    // Check that the page has proper structure for CSS styling
-    expect(html).toContain('useMenuItems()')
-    expect(html).toContain('Main Menu Items')
-  })
+      // Check for menu structure (either items or no items message)
+      const hasMenuItems = html.includes('<ul') && html.includes('<li')
+      const hasNoItemsMessage = html.includes('No menu items found')
 
-  it('should display JSON data in readable format', async () => {
-    const html = await $fetch('/menu-items')
+      // One of these should be true
+      expect(hasMenuItems || hasNoItemsMessage).toBe(true)
 
-    // Check that JSON is properly formatted in a code block
-    expect(html).toMatch(/<pre[^>]*>/)
-    expect(html).toMatch(/<code[^>]*>/)
-  })
+      // If menu items exist, they should have proper link structure
+      if (hasMenuItems) {
+        expect(html).toContain('<a')
+        expect(html).toContain('href=')
+      }
+    })
 
-  it('should handle empty or undefined menu data gracefully', async () => {
-    const html = await $fetch<string>('/menu-items')
+    it('should display raw menu data as properly formatted JSON', async () => {
+      const html = await getPageHtml()
 
-    // The page should render even if no menu data is available
-    expect(html).toContain('useMenuItems()')
+      // Check that JSON data is displayed in proper format
+      expect(html).toMatch(/<pre[^>]*>/)
+      expect(html).toMatch(/<code[^>]*>/)
+    })
 
-    // Should either show items or show "No menu items found"
-    const hasContent = html.includes('No menu items found') || html.includes('<ul')
-    expect(hasContent).toBe(true)
+    it('should use useMenuItems composable without errors', async () => {
+      const html = await getPageHtml()
+
+      // The page should render without errors, indicating the composable works
+      expect(html).toContain('useMenuItems()')
+      expect(html).not.toContain('Error:')
+      expect(html).not.toContain('TypeError')
+    })
   })
 })
