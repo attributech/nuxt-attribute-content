@@ -18,53 +18,9 @@ export const COMMON_ICON_NAMES = ['arrow-left', 'arrow-right']
 /**
  * HTML assertions for icon testing
  */
-export function assertIconHeading(html: string, expectedHeading: string) {
-  expect(html).toContain(expectedHeading)
-}
-
-export function assertBasicUsageSection(html: string) {
-  expect(html).toContain('Basic Usage')
-}
-
-export function assertIcon(html: string, iconName: string) {
-  expect(html).toContain(`icon--${iconName}`)
-  expect(html).toContain(iconName)
-}
-
-export function assertIcons(html: string, iconNames: string[]) {
-  iconNames.forEach((iconName) => {
-    assertIcon(html, iconName)
-  })
-}
-
 export function assertGridLayout(html: string) {
   expect(html).toContain('class="icon-grid"')
   expect(html).toContain('class="icon-item"')
-}
-
-export function assertIconLabels(html: string, labels: string[]) {
-  labels.forEach((label) => {
-    expect(html).toContain(`>${label}</span>`)
-  })
-}
-
-export function assertSizeClasses(html: string, sizes: string[]) {
-  sizes.forEach((size) => {
-    expect(html).toContain(`icon--size-${size}`)
-  })
-}
-
-export function assertSizeSections(html: string, sizes: string[]) {
-  expect(html).toContain('Sizes')
-  sizes.forEach((size) => {
-    expect(html).toContain(`>${size}</h3>`)
-  })
-}
-
-export function assertMinimumIconItems(html: string, count: number) {
-  const iconItemMatches = html.match(/class="[^"]*icon-item[^"]*"/g)
-  expect(iconItemMatches).toBeTruthy()
-  expect(iconItemMatches!.length).toBeGreaterThanOrEqual(count)
 }
 
 /**

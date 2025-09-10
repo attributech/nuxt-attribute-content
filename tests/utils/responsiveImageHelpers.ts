@@ -56,18 +56,6 @@ export const VIEWPORT_TEST_CASES: ViewportTestCase[] = [
 /**
  * Assertions for responsive image HTML testing
  */
-export function assertResponsiveImageHeading(html: string, expectedHeading: string) {
-  expect(html).toContain(expectedHeading)
-}
-
-export function assertLazyLoadClass(html: string) {
-  expect(html).toContain('<img')
-  expect(html).toContain('class="lazyload"')
-}
-
-export function assertAltText(html: string, altText: string) {
-  expect(html).toContain(`alt="${altText}"`)
-}
 
 export function assertResponsiveSrcset(html: string, widths: number[]) {
   expect(html).toContain('data-srcset=')
@@ -76,30 +64,10 @@ export function assertResponsiveSrcset(html: string, widths: number[]) {
   })
 }
 
-export function assertWebpFormat(html: string) {
-  expect(html).toContain('f_webp')
-}
-
-export function assertQuality(html: string, quality: number) {
-  expect(html).toContain(`q_${quality}`)
-}
-
-export function assertIPXTransformation(html: string) {
-  expect(html).toContain('/_ipx/')
-}
-
-export function assertSizesAttribute(html: string, value: string) {
-  expect(html).toContain(`sizes="${value}"`)
-}
-
 export function assertDataAttributes(html: string, attributes: Record<string, string>) {
   Object.entries(attributes).forEach(([key, value]) => {
     expect(html).toContain(`data-${key}="${value}"`)
   })
-}
-
-export function assertReferencesImage(html: string, imageName: string) {
-  expect(html).toMatch(new RegExp(`data-srcset="[^"]*${imageName}[^"]*"`))
 }
 
 /**
@@ -112,28 +80,6 @@ export async function getImageElement(page: Page) {
   return img
 }
 
-export async function verifyAltText(page: Page, expectedAlt: string) {
-  const img = await getImageElement(page)
-  const alt = await img.getAttribute('alt')
-  expect(alt).toBe(expectedAlt)
-}
-
-export async function verifyDataSrcset(page: Page, expectedContent: string[]) {
-  const img = await getImageElement(page)
-  const dataSrcset = await img.getAttribute('data-srcset')
-  expect(dataSrcset).toBeTruthy()
-
-  expectedContent.forEach((content) => {
-    expect(dataSrcset).toContain(content)
-  })
-}
-
-export async function verifySizesProcessed(page: Page) {
-  const img = await getImageElement(page)
-  const sizes = await img.getAttribute('sizes')
-  expect(sizes).toMatch(/^\d+px$/) // Should be calculated pixel value
-}
-
 export async function verifyDataAttributes(page: Page, expectedAttributes: Record<string, string>) {
   const img = await getImageElement(page)
 
@@ -141,15 +87,6 @@ export async function verifyDataAttributes(page: Page, expectedAttributes: Recor
     const actual = await img.getAttribute(`data-${key}`)
     expect(actual).toBe(value)
   }
-}
-
-export async function verifyImageLoaded(page: Page) {
-  const img = await getImageElement(page)
-  await page.waitForTimeout(1000) // Wait for lazysizes processing
-
-  const srcset = await img.getAttribute('srcset')
-  const src = await img.getAttribute('src')
-  expect(srcset || src).toBeTruthy()
 }
 
 export async function verifyLoadedImageWidth(page: Page, expectedWidth: number, expectedFormats: string[] = ['f_webp', 'q_60']) {

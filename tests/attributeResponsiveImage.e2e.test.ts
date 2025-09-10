@@ -1,4 +1,4 @@
-import { describe, it, beforeAll, afterAll } from 'vitest'
+import { describe, it, beforeAll, afterAll, expect } from 'vitest'
 import { $fetch } from '@nuxt/test-utils/e2e'
 import {
   setupE2ETests,
@@ -36,9 +36,13 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
     it('should render the responsive image page with correct structure', async () => {
       const html = await getPageHtml()
 
-      responsiveImageTestUtils.assertResponsiveImageHeading(html, '<h1>&lt;AttributeResponsiveImage&gt;</h1>')
-      responsiveImageTestUtils.assertLazyLoadClass(html)
-      responsiveImageTestUtils.assertAltText(html, 'Placeholder')
+      // Check page structure
+      expect(html).toContain('<h1>&lt;AttributeResponsiveImage&gt;</h1>')
+
+      // Check lazy loading setup
+      expect(html).toContain('<img')
+      expect(html).toContain('class="lazyload"')
+      expect(html).toContain('alt="Placeholder"')
     })
 
     it('should generate responsive srcset with all required sizes', async () => {
@@ -49,15 +53,17 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
     it('should have optimized image configuration', async () => {
       const html = await getPageHtml()
 
-      responsiveImageTestUtils.assertWebpFormat(html)
-      responsiveImageTestUtils.assertQuality(html, 60)
-      responsiveImageTestUtils.assertIPXTransformation(html)
+      // Check image optimizations
+      expect(html).toContain('f_webp')
+      expect(html).toContain('q_60')
+      expect(html).toContain('/_ipx/')
     })
 
     it('should have proper lazy loading attributes', async () => {
       const html = await getPageHtml()
 
-      responsiveImageTestUtils.assertSizesAttribute(html, 'auto')
+      // Check lazy loading attributes
+      expect(html).toContain('sizes="auto"')
       responsiveImageTestUtils.assertDataAttributes(html, {
         'aspectratio': 'false',
         'parent-fit': 'false',
@@ -66,7 +72,7 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
 
     it('should reference the correct test image', async () => {
       const html = await getPageHtml()
-      responsiveImageTestUtils.assertReferencesImage(html, 'test.png')
+      expect(html).toMatch(/data-srcset="[^"]*test\.png[^"]*"/)
     })
   })
 
@@ -76,10 +82,26 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
         const page = await createTestPage(RESPONSIVE_IMAGE_PATH)
 
         try {
-          await responsiveImageTestUtils.verifyAltText(page, 'Placeholder')
-          await responsiveImageTestUtils.verifyDataSrcset(page, ['test.png', 'f_webp', '320w', '640w', '1280w', 'q_60'])
-          await responsiveImageTestUtils.verifySizesProcessed(page)
-          await responsiveImageTestUtils.verifyDataAttributes(page, {
+          const img = await responsiveImageTestUtils.getImageElement(page)
+
+          // Check alt text
+          const alt = await img.getAttribute('alt')
+          expect(alt).toBe('Placeholder')
+
+          // Check data-srcset content
+          const dataSrcset = await img.getAttribute('data-srcset')
+          expect(dataSrcset).toBeTruthy()
+          const expectedContent = ['test.png', 'f_webp', '320w', '640w', '1280w', 'q_60']
+          expectedContent.forEach((content) => {
+            expect(dataSrcset).toContain(content)
+          })
+
+          // Check sizes attribute is processed by lazysizes
+          const sizes = await img.getAttribute('sizes')
+          expect(sizes).toMatch(/^\d+px$/)
+
+          // Check data attributes
+          responsiveImageTestUtils.assertDataAttributes(await page.content(), {
             'aspectratio': 'false',
             'parent-fit': 'false',
           })
@@ -93,7 +115,12 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
         const page = await createTestPage(RESPONSIVE_IMAGE_PATH)
 
         try {
-          await responsiveImageTestUtils.verifyImageLoaded(page)
+          const img = await responsiveImageTestUtils.getImageElement(page)
+          await page.waitForTimeout(1000) // Wait for lazysizes processing
+
+          const srcset = await img.getAttribute('srcset')
+          const src = await img.getAttribute('src')
+          expect(srcset || src).toBeTruthy()
         }
         finally {
           await page.close()
@@ -125,7 +152,11 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
           responsiveImageTestUtils.VIEWPORT_TEST_CASES,
           async (page, testCase) => {
             await responsiveImageTestUtils.verifyLoadedImageWidth(page, testCase.expectedImageWidth)
-            await responsiveImageTestUtils.verifyAltText(page, 'Placeholder')
+
+            // Check alt text directly
+            const img = await responsiveImageTestUtils.getImageElement(page)
+            const alt = await img.getAttribute('alt')
+            expect(alt).toBe('Placeholder')
           },
         )
       })

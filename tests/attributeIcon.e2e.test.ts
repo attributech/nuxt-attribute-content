@@ -31,31 +31,57 @@ describe('AttributeIcon E2E Tests', async () => {
     it('should render the icon page with correct structure', async () => {
       const html = await getPageHtml()
 
-      iconTestUtils.assertIconHeading(html, '&lt;AttributeIcon&gt;')
-      iconTestUtils.assertBasicUsageSection(html)
-      iconTestUtils.assertGridLayout(html)
+      // Check page structure
+      expect(html).toContain('&lt;AttributeIcon&gt;')
+      expect(html).toContain('Basic Usage')
+
+      // Check grid layout
+      expect(html).toContain('class="icon-grid"')
+      expect(html).toContain('class="icon-item"')
     })
 
     it('should display all common icons', async () => {
       const html = await getPageHtml()
 
-      iconTestUtils.assertIcons(html, iconTestUtils.COMMON_ICON_NAMES)
-      iconTestUtils.assertIconLabels(html, iconTestUtils.COMMON_ICON_NAMES)
+      // Check that all common icons are present
+      iconTestUtils.COMMON_ICON_NAMES.forEach((iconName) => {
+        expect(html).toContain(`icon--${iconName}`)
+        expect(html).toContain(iconName)
+      })
+
+      // Check icon labels
+      iconTestUtils.COMMON_ICON_NAMES.forEach((label) => {
+        expect(html).toContain(`>${label}</span>`)
+      })
     })
 
     it('should have proper grid layout and semantic structure', async () => {
       const html = await getPageHtml()
 
-      iconTestUtils.assertGridLayout(html)
-      iconTestUtils.assertMinimumIconItems(html, 2)
+      // Check grid layout
+      expect(html).toContain('class="icon-grid"')
+      expect(html).toContain('class="icon-item"')
+
+      // Check minimum icon items
+      const iconItemMatches = html.match(/class="[^"]*icon-item[^"]*"/g)
+      expect(iconItemMatches).toBeTruthy()
+      expect(iconItemMatches!.length).toBeGreaterThanOrEqual(2)
     })
 
     it('should render icons with different size classes', async () => {
       const html = await getPageHtml()
       const sizes = iconTestUtils.ICON_SIZE_CONFIGS.map(config => config.size)
 
-      iconTestUtils.assertSizeClasses(html, sizes)
-      iconTestUtils.assertSizeSections(html, sizes)
+      // Check size classes
+      sizes.forEach((size) => {
+        expect(html).toContain(`icon--size-${size}`)
+      })
+
+      // Check size sections
+      expect(html).toContain('Sizes')
+      sizes.forEach((size) => {
+        expect(html).toContain(`>${size}</h3>`)
+      })
     })
   })
 
@@ -104,15 +130,24 @@ describe('AttributeIcon E2E Tests', async () => {
         const page = await createTestPage(ICON_PAGE_PATH)
 
         try {
-          // Test each size configuration with optimized functions
-          const dimensionPromises = iconTestUtils.ICON_SIZE_CONFIGS.map(config =>
-            iconTestUtils.verifyIconDimensions(
-              page,
-              config.selector,
-              config.expectedWidth,
-              config.expectedHeight,
-            ),
-          )
+          // Test each size configuration with direct dimension checking
+          const dimensionPromises = iconTestUtils.ICON_SIZE_CONFIGS.map(async (config) => {
+            await page.waitForSelector(config.selector, { timeout: 3000 })
+
+            const dimensions = await page.evaluate((sel) => {
+              const element = document.querySelector(sel)
+              if (!element) return null
+              const styles = window.getComputedStyle(element)
+              return {
+                width: Number.parseInt(styles.width),
+                height: Number.parseInt(styles.height),
+              }
+            }, config.selector)
+
+            expect(dimensions).toBeTruthy()
+            expect(dimensions!.width).toBe(config.expectedWidth)
+            expect(dimensions!.height).toBe(config.expectedHeight)
+          })
 
           await Promise.all(dimensionPromises)
         }
