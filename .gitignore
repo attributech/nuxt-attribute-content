@@ -22,3 +22,7 @@ dist
 
 # JetBrains/WebStorm
 .idea/
+.vercel
+
+# Vitest coverage
+coverage

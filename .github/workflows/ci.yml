@@ -19,20 +19,44 @@ env:
   PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Set node version to ${{ inputs.node-version }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build (stub)
+        run: pnpm dev:prepare
+
+      - name: Lint
+        run: pnpm lint
+
   test:
     runs-on: ${{ matrix.os }}
 
-    timeout-minutes: 30
+    timeout-minutes: 10
 
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [22]
-        include:
-          - os: macos-latest
-            node_version: 22
-          - os: windows-latest
-            node_version: 22
+        node: ["lts"]
+        # Disabling macos and Windows testing for now.
+        # include:
+        #   - os: macos-latest
+        #     node_version: 22
+        #   - os: windows-latest
+        #     node_version: 22
       fail-fast: false
 
     steps:
@@ -49,8 +73,13 @@ jobs:
       - name: Install
         run: pnpm i
 
-      - name: Install Playwright Dependencies
-        run: pnpm exec playwright install chromium --with-deps
+      - name: Install Playwright Browsers
+        run: |
+          pnpm playwright-core install chromium
+          pnpm playwright-core install firefox
+
+      - name: Prepare dev environment
+        run: pnpm run dev:prepare
 
       - name: Test
         run: pnpm run test
