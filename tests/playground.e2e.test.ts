@@ -33,10 +33,11 @@ describe('Playground E2E Tests', async () => {
     it('should display all navigation links to feature pages', async () => {
       const html = await getCachedHtml('/')
 
-      // Check that all navigation links are present
+      // Check that all navigation links are present (including new /title link)
       const expectedLinks = [
         'href="/icon"',
         'href="/responsive-image"',
+        'href="/title"',
         'href="/menu-items"',
         'href="/rendered-markdown"',
       ]
@@ -49,10 +50,11 @@ describe('Playground E2E Tests', async () => {
     it('should display feature descriptions for all components', async () => {
       const html = await getCachedHtml('/')
 
-      // Check that feature descriptions are present
+      // Check that feature descriptions are present (including Title Components)
       const expectedFeatures = [
         'AttributeIcon',
         'AttributeResponsiveImage',
+        'Title Components',
         'useMenuItems()',
         'useRenderedMarkdown()',
       ]
@@ -70,6 +72,20 @@ describe('Playground E2E Tests', async () => {
       // Check essential content without redundant icon testing
       expect(html).toContain('&lt;AttributeIcon&gt;')
       expect(html).toContain('icon--')
+      expect(html).toContain('icon--arrow-left')
+      expect(html).toContain('icon--arrow-right')
+    })
+
+    it('should render the title page', async () => {
+      const html = await getCachedHtml('/title')
+
+      // Check that the page renders with correct heading
+      expect(html).toContain('&lt;BlockTitle&gt;')
+
+      // Check that title components are rendered with correct heading levels
+      expect(html).toContain('<h1 class="title title--level-1">Heading 1</h1>')
+      expect(html).toContain('<h2 class="title title--level-2">Heading 2</h2>')
+      expect(html).toContain('<h3 class="title title--level-3">Heading 3</h3>')
     })
 
     it('should render the menu-items page with core functionality', async () => {
