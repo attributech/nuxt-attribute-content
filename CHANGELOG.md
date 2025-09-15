@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.12
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.11...v0.0.12)
+
+### 🚀 Enhancements
+
+- **blocks:** Adding a block component for rendering titles ([#17](https://github.com/attributech/nuxt-attribute-content/pull/17))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.11
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.10...v0.0.11)
