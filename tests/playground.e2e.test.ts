@@ -55,7 +55,7 @@ describe('Playground E2E Tests', async () => {
       const expectedFeatures = [
         'AttributeIcon',
         'AttributeResponsiveImage',
-        'Title Components',
+        'ModulesTitle',
         'useMenuItems()',
         'useRenderedMarkdown()',
         'AttributeDynamicComponent',
@@ -82,7 +82,7 @@ describe('Playground E2E Tests', async () => {
       const html = await getCachedHtml('/title')
 
       // Check that the page renders with correct heading
-      expect(html).toContain('&lt;BlockTitle&gt;')
+      expect(html).toContain('&lt;ModulesTitle&gt;')
 
       // Check that title components are rendered with correct heading levels
       expect(html).toContain('<h1 class="title title--level-1">Heading 1</h1>')

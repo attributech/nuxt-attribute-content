@@ -10,7 +10,7 @@ describe('Title Components E2E Tests', async () => {
     const html = await $fetch('/title')
 
     // Check that the page renders with correct heading
-    expect(html).toContain('<h1>&lt;ModuleTitle&gt;</h1>')
+    expect(html).toContain('<h1>&lt;ModulesTitle&gt;</h1>')
   })
 
   it('should render all three title components with correct heading levels', async () => {
@@ -128,12 +128,12 @@ describe('Title Components E2E Tests', async () => {
   })
 
   describe('Title Component Integration Tests', () => {
-    it('should properly pass props from BlockTitle to ModuleTitle', async () => {
+    it('should properly pass props from BlockTitle to ModulesTitle', async () => {
       const page = await createPage('/title')
       await page.waitForLoadState('networkidle')
 
       // The integration works if we see the correct titles with correct levels
-      // This tests the entire prop chain: page data -> BlockTitle -> ModuleTitle
+      // This tests the entire prop chain: page data -> BlockTitle -> ModulesTitle
 
       const titles = [
         { selector: '.title--level-1', expectedText: 'Heading 1', expectedTag: 'h1' },

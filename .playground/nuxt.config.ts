@@ -7,12 +7,12 @@ export default defineNuxtConfig({
   components: [
     {
       path: '../components/modules',
-      prefix: 'Module',
+      prefix: 'Modules',
       global: true,
     },
     {
       path: '~/blocks',
-      prefix: 'Module',
+      prefix: 'Modules',
       global: true,
     },
     '~/components',
