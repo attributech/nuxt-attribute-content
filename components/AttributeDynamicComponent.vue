@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="componentName(item.type)"
+    :is="componentName"
     v-bind="{ ...item }"
   />
 </template>
@@ -15,13 +15,13 @@ interface Props {
   item?: Item
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   item: () => ({} as Item),
 })
 
 const { toPascalCase } = useCamelize()
 
-function componentName(name: string): string {
-  return `Modules${toPascalCase(name)}`
-}
+const componentName = computed<string>(() => {
+  return `Modules${toPascalCase(props.item.type)}`
+})
 </script>
