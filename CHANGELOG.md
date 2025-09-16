@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.0.13
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.12...v0.0.13)
+
+### 🚀 Enhancements
+
+- **components:** Adding AttributeDynamicComponent to render components dynamically based on data ([d0e576b](https://github.com/attributech/nuxt-attribute-content/commit/d0e576b))
+
+### 🩹 Fixes
+
+- **markdown:** Fixing incorrect import of useNuxtApp ([9661c9f](https://github.com/attributech/nuxt-attribute-content/commit/9661c9f))
+- **components:** Removing unneded import ([f9438d7](https://github.com/attributech/nuxt-attribute-content/commit/f9438d7))
+- **components:** Renaming Module prefix to Modules ([e5664d7](https://github.com/attributech/nuxt-attribute-content/commit/e5664d7))
+
+### 💅 Refactors
+
+- **components:** Removing blocks and replacing them with modules ([7b3216b](https://github.com/attributech/nuxt-attribute-content/commit/7b3216b))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.12
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.11...v0.0.12)
