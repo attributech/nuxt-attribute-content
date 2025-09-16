@@ -40,6 +40,7 @@ describe('Playground E2E Tests', async () => {
         'href="/title"',
         'href="/menu-items"',
         'href="/rendered-markdown"',
+        'href="/block-dynamic"',
       ]
 
       expectedLinks.forEach((link) => {
@@ -50,13 +51,14 @@ describe('Playground E2E Tests', async () => {
     it('should display feature descriptions for all components', async () => {
       const html = await getCachedHtml('/')
 
-      // Check that feature descriptions are present (including Title Components)
+      // Check that feature descriptions are present (including ModulesTitle)
       const expectedFeatures = [
         'AttributeIcon',
         'AttributeResponsiveImage',
         'Title Components',
         'useMenuItems()',
         'useRenderedMarkdown()',
+        'AttributeDynamicComponent',
       ]
 
       expectedFeatures.forEach((feature) => {
