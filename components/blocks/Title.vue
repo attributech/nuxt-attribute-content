@@ -1,5 +1,8 @@
 <template>
-  <ModulesTitle :title="fields.title" :level="fields.level" />
+  <ModulesTitle
+    :title="fields.title"
+    :level="fields.level"
+  />
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,9 @@
 <template>
-  <component :is="htmlTag" class="title" :class="classes">
+  <component
+    :is="htmlTag"
+    class="title"
+    :class="classes"
+  >
     {{ title }}
   </component>
 </template>
