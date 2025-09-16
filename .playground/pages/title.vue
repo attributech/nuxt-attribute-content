@@ -1,9 +1,12 @@
 <template>
   <div>
-    <h1>&lt;BlockTitle&gt;</h1>
-    <BlockTitle :fields="data.title1" />
-    <BlockTitle :fields="data.title2" />
-    <BlockTitle :fields="data.title3" />
+    <h1>&lt;ModuleTitle&gt;</h1>
+    <ModuleTitle
+      v-for="(item, key) in data"
+      :key="key"
+      :title="item.title"
+      :level="item.level"
+    />
   </div>
 </template>
 

@@ -6,13 +6,13 @@ export default defineNuxtConfig({
 
   components: [
     {
-      path: '../components/blocks',
-      prefix: 'Block',
+      path: '../components/modules',
+      prefix: 'Module',
       global: true,
     },
     {
       path: '~/blocks',
-      prefix: 'Block',
+      prefix: 'Module',
       global: true,
     },
     '~/components',

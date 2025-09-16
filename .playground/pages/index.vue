@@ -26,7 +26,7 @@
           href="/title"
           class="feature-card"
         >
-          <h3>Title Components</h3>
+          <h3>ModuleTitle</h3>
           <p>Flexible title components with dynamic heading levels</p>
         </a>
 
