@@ -26,7 +26,7 @@
           href="/title"
           class="feature-card"
         >
-          <h3>Title Components</h3>
+          <h3>ModulesTitle</h3>
           <p>Flexible title components with dynamic heading levels</p>
         </a>
 
@@ -44,6 +44,14 @@
         >
           <h3>useRenderedMarkdown()</h3>
           <p>Composable for rendering markdown content</p>
+        </a>
+
+        <a
+          href="/block-dynamic"
+          class="feature-card"
+        >
+          <h3>AttributeDynamicComponent</h3>
+          <p>A component to render dynamic componets based on data</p>
         </a>
       </div>
     </section>

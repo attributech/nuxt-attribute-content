@@ -1,12 +1,14 @@
 <template>
-  <component :is="htmlTag" class="title" :class="classes">
+  <component
+    :is="htmlTag"
+    class="title"
+    :class="classes"
+  >
     {{ title }}
   </component>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 interface Props {
   title: string
   level: number

@@ -40,6 +40,7 @@ describe('Playground E2E Tests', async () => {
         'href="/title"',
         'href="/menu-items"',
         'href="/rendered-markdown"',
+        'href="/block-dynamic"',
       ]
 
       expectedLinks.forEach((link) => {
@@ -50,13 +51,14 @@ describe('Playground E2E Tests', async () => {
     it('should display feature descriptions for all components', async () => {
       const html = await getCachedHtml('/')
 
-      // Check that feature descriptions are present (including Title Components)
+      // Check that feature descriptions are present (including ModulesTitle)
       const expectedFeatures = [
         'AttributeIcon',
         'AttributeResponsiveImage',
-        'Title Components',
+        'ModulesTitle',
         'useMenuItems()',
         'useRenderedMarkdown()',
+        'AttributeDynamicComponent',
       ]
 
       expectedFeatures.forEach((feature) => {
@@ -80,7 +82,7 @@ describe('Playground E2E Tests', async () => {
       const html = await getCachedHtml('/title')
 
       // Check that the page renders with correct heading
-      expect(html).toContain('&lt;BlockTitle&gt;')
+      expect(html).toContain('&lt;ModulesTitle&gt;')
 
       // Check that title components are rendered with correct heading levels
       expect(html).toContain('<h1 class="title title--level-1">Heading 1</h1>')

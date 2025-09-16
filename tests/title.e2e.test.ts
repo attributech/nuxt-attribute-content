@@ -10,7 +10,7 @@ describe('Title Components E2E Tests', async () => {
     const html = await $fetch('/title')
 
     // Check that the page renders with correct heading
-    expect(html).toContain('<h1>&lt;BlockTitle&gt;</h1>')
+    expect(html).toContain('<h1>&lt;ModulesTitle&gt;</h1>')
   })
 
   it('should render all three title components with correct heading levels', async () => {
