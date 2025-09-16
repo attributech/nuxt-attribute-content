@@ -1,11 +1,10 @@
 <template>
-  <component
-    :is="htmlTag"
+  <AttributeTitle
+    :title
+    :level
     class="title"
     :class="classes"
-  >
-    {{ title }}
-  </component>
+  />
 </template>
 
 <script setup lang="ts">
@@ -15,10 +14,6 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
-const htmlTag = computed(() => {
-  return `h${props.level}`
-})
 
 const classes = computed(() => {
   return [`title--level-${props.level}`]

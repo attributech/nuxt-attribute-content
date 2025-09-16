@@ -51,11 +51,11 @@ describe('Playground E2E Tests', async () => {
     it('should display feature descriptions for all components', async () => {
       const html = await getCachedHtml('/')
 
-      // Check that feature descriptions are present (including ModulesTitle)
+      // Check that feature descriptions are present (including AttributeTitle)
       const expectedFeatures = [
         'AttributeIcon',
         'AttributeResponsiveImage',
-        'ModulesTitle',
+        'AttributeTitle',
         'useMenuItems()',
         'useRenderedMarkdown()',
         'AttributeDynamicComponent',
@@ -82,12 +82,12 @@ describe('Playground E2E Tests', async () => {
       const html = await getCachedHtml('/title')
 
       // Check that the page renders with correct heading
-      expect(html).toContain('&lt;ModulesTitle&gt;')
+      expect(html).toContain('&lt;AttributeTitle&gt;')
 
       // Check that title components are rendered with correct heading levels
-      expect(html).toContain('<h1 class="title title--level-1">Heading 1</h1>')
-      expect(html).toContain('<h2 class="title title--level-2">Heading 2</h2>')
-      expect(html).toContain('<h3 class="title title--level-3">Heading 3</h3>')
+      expect(html).toContain('<h1>Heading 1</h1>')
+      expect(html).toContain('<h2>Heading 2</h2>')
+      expect(html).toContain('<h3>Heading 3</h3>')
     })
 
     it('should render the menu-items page with core functionality', async () => {

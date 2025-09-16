@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>&lt;ModulesTitle&gt;</h1>
-    <ModulesTitle
+    <h1>&lt;AttributeTitle&gt;</h1>
+    <AttributeTitle
       v-for="(item, key) in data"
       :key="key"
       :title="item.title"
