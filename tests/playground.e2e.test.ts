@@ -33,7 +33,7 @@ describe('Playground E2E Tests', async () => {
     it('should display all navigation links to feature pages', async () => {
       const html = await getCachedHtml('/')
 
-      // Check that all navigation links are present (including new /title link)
+      // Check that all navigation links are present (including new /title and /map links)
       const expectedLinks = [
         'href="/icon"',
         'href="/responsive-image"',
@@ -41,6 +41,7 @@ describe('Playground E2E Tests', async () => {
         'href="/menu-items"',
         'href="/rendered-markdown"',
         'href="/block-dynamic"',
+        'href="/map"',
       ]
 
       expectedLinks.forEach((link) => {
@@ -51,7 +52,7 @@ describe('Playground E2E Tests', async () => {
     it('should display feature descriptions for all components', async () => {
       const html = await getCachedHtml('/')
 
-      // Check that feature descriptions are present (including ModulesTitle)
+      // Check that feature descriptions are present (including ModulesTitle and AttributeMap)
       const expectedFeatures = [
         'AttributeIcon',
         'AttributeResponsiveImage',
@@ -59,6 +60,7 @@ describe('Playground E2E Tests', async () => {
         'useMenuItems()',
         'useRenderedMarkdown()',
         'AttributeDynamicComponent',
+        'AttributeMap',
       ]
 
       expectedFeatures.forEach((feature) => {

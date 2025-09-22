@@ -53,6 +53,14 @@
           <h3>AttributeDynamicComponent</h3>
           <p>A component to render dynamic componets based on data</p>
         </a>
+
+        <a
+          href="/map"
+          class="feature-card"
+        >
+          <h3>AttributeMap</h3>
+          <p>Interactive map component with markers and customizable tiles</p>
+        </a>
       </div>
     </section>
   </main>
