@@ -41,5 +41,13 @@
     "markdown-it": "^14.1.0",
     "nuxt-lazyimages": "^0.2.1",
     "nuxt-svg-icon-sprite": "2.0.2"
+  },
+  "peerDependencies": {
+    "@nuxtjs/leaflet": "^1"
+  },
+  "peerDependenciesMeta": {
+    "@nuxtjs/leaflet": {
+      "optional": true
+    }
   }
 }

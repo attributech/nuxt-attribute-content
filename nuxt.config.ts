@@ -10,6 +10,13 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
   ],
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      mapbox: {
+        accessToken: '',
+      },
+    },
+  },
   compatibilityDate: '2025-09-01',
   postcss: {
     plugins: {

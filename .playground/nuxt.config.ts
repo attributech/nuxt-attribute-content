@@ -2,8 +2,10 @@ import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
   extends: ['..'],
-  modules: ['@nuxt/eslint'],
-
+  modules: [
+    '@nuxt/eslint',
+    '@nuxtjs/leaflet',
+  ],
   components: [
     {
       path: '../components/modules',
