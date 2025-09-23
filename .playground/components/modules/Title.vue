@@ -1,5 +1,10 @@
 <template>
-  <AttributeTitle :title :level class="title" :class="classes" />
+  <AttributeTitle
+    :title
+    :level
+    class="title"
+    :class="classes"
+  />
 </template>
 
 <script setup lang="ts">
