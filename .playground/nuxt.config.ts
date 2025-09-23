@@ -6,19 +6,10 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxtjs/leaflet',
   ],
-  components: [
-    {
-      path: '../components/modules',
-      prefix: 'Modules',
-      global: true,
-    },
-    {
-      path: '~/blocks',
-      prefix: 'Modules',
-      global: true,
-    },
-    '~/components',
-  ],
+  components: {
+    global: true,
+    dirs: ['~/components'],
+  },
   css: ['~/assets/css/main.css'],
   eslint: {
     config: {
