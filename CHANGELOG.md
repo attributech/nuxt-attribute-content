@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.1.0
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.13...v0.1.0)
+
+### 🩹 Fixes
+
+- **playground:** Fixing component directories ([57ac77d](https://github.com/attributech/nuxt-attribute-content/commit/57ac77d))
+- **playground:** Fixing TitleModule ([985f757](https://github.com/attributech/nuxt-attribute-content/commit/985f757))
+
+### 💅 Refactors
+
+- **components:** ⚠️  Renaming ModulesTitle to AttributeTitle ([3d3e099](https://github.com/attributech/nuxt-attribute-content/commit/3d3e099))
+
+#### ⚠️ Breaking Changes
+
+- **components:** ⚠️  Renaming ModulesTitle to AttributeTitle ([3d3e099](https://github.com/attributech/nuxt-attribute-content/commit/3d3e099))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.0.13
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.12...v0.0.13)
