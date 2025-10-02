@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     'nuxt-lazyimages',
     '@nuxt/eslint',
+    'nuxt-ipx-cache',
   ],
   devtools: { enabled: true },
   runtimeConfig: {

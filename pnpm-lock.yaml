@@ -57,6 +57,9 @@ importers:
       nuxt:
         specifier: ^4.1.1
         version: 4.1.1(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@types/node@24.3.0)(@vue/compiler-sfc@3.5.21)(better-sqlite3@12.2.0)(db0@0.3.2(better-sqlite3@12.2.0))(eslint@9.34.0(jiti@2.5.1))(ioredis@5.7.0)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rolldown@1.0.0-beta.34)(rollup@4.50.0)(terser@5.43.1)(typescript@5.9.2)(vite@7.1.4(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.1))(vue-tsc@3.0.6(typescript@5.9.2))(yaml@2.8.1)
+      nuxt-ipx-cache:
+        specifier: 1.0.6
+        version: 1.0.6(defu@6.1.4)(ipx@2.1.1(@netlify/blobs@9.1.2)(db0@0.3.2(better-sqlite3@12.2.0))(ioredis@5.7.0))(magicast@0.3.5)
       playwright:
         specifier: ^1.55.0
         version: 1.55.0
@@ -4276,6 +4279,12 @@ packages:
     resolution: {integrity: sha512-cosF2jUd47TnN7Y8PsRfzdsVomHpVxVjZZIDgyaPqe+wnl2Ys5LXMUt+K3CpXrJrGRFlDRP6ux47Ukevf9juVQ==}
     hasBin: true
 
+  nuxt-ipx-cache@1.0.6:
+    resolution: {integrity: sha512-FYuxtAKtUs+6BapDdRfb2uFavZUY1Q2TH3FSwXdOmzDiyzxgPaCevENAjadwsEmneibqGWRcsyYl9hl+341SVA==}
+    peerDependencies:
+      defu: ^6.1.4
+      ipx: 3.x || 2.x
+
   nuxt-lazyimages@0.2.1:
     resolution: {integrity: sha512-eKXtTPYyaHGcOcU/j1KSd4d9XV92owk9Xfhk8IjEv9Xl4JNkwXdlkOJ1UorosaQhIVJP6aHjNmaRDD0vILhRLQ==}
 
@@ -6452,8 +6461,7 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@fastify/accept-negotiator@1.1.0':
-    optional: true
+  '@fastify/accept-negotiator@1.1.0': {}
 
   '@fastify/busboy@3.2.0': {}
 
@@ -7641,8 +7649,7 @@ snapshots:
       estraverse: 5.3.0
       picomatch: 4.0.3
 
-  '@trysound/sax@0.2.0':
-    optional: true
+  '@trysound/sax@0.2.0': {}
 
   '@tybys/wasm-util@0.10.0':
     dependencies:
@@ -8581,7 +8588,6 @@ snapshots:
     dependencies:
       color-convert: 2.0.1
       color-string: 1.9.1
-    optional: true
 
   colord@2.9.3: {}
 
@@ -8600,8 +8606,7 @@ snapshots:
 
   commander@2.20.3: {}
 
-  commander@7.2.0:
-    optional: true
+  commander@7.2.0: {}
 
   comment-parser@1.4.1: {}
 
@@ -8701,7 +8706,6 @@ snapshots:
     dependencies:
       mdn-data: 2.0.30
       source-map-js: 1.2.1
-    optional: true
 
   css-tree@3.1.0:
     dependencies:
@@ -8712,8 +8716,7 @@ snapshots:
 
   cssesc@3.0.0: {}
 
-  cssfilter@0.0.10:
-    optional: true
+  cssfilter@0.0.10: {}
 
   cssnano-preset-default@7.0.9(postcss@8.5.6):
     dependencies:
@@ -9799,7 +9802,6 @@ snapshots:
       - idb-keyval
       - ioredis
       - uploadthing
-    optional: true
 
   iron-webcrypto@1.2.1: {}
 
@@ -10301,8 +10303,7 @@ snapshots:
 
   mdn-data@2.0.28: {}
 
-  mdn-data@2.0.30:
-    optional: true
+  mdn-data@2.0.30: {}
 
   mdn-data@2.12.2: {}
 
@@ -10714,8 +10715,7 @@ snapshots:
     dependencies:
       semver: 7.7.2
 
-  node-addon-api@6.1.0:
-    optional: true
+  node-addon-api@6.1.0: {}
 
   node-addon-api@7.1.1: {}
 
@@ -10803,6 +10803,14 @@ snapshots:
       typescript: 5.9.2
       ufo: 1.6.1
       vue-component-meta: 3.0.6(typescript@5.9.2)
+    transitivePeerDependencies:
+      - magicast
+
+  nuxt-ipx-cache@1.0.6(defu@6.1.4)(ipx@2.1.1(@netlify/blobs@9.1.2)(db0@0.3.2(better-sqlite3@12.2.0))(ioredis@5.7.0))(magicast@0.3.5):
+    dependencies:
+      '@nuxt/kit': 3.18.1(magicast@0.3.5)
+      defu: 6.1.4
+      ipx: 2.1.1(@netlify/blobs@9.1.2)(db0@0.3.2(better-sqlite3@12.2.0))(ioredis@5.7.0)
     transitivePeerDependencies:
       - magicast
 
@@ -11848,7 +11856,6 @@ snapshots:
       tunnel-agent: 0.6.0
     transitivePeerDependencies:
       - bare-buffer
-    optional: true
 
   shebang-command@2.0.0:
     dependencies:
@@ -12088,7 +12095,6 @@ snapshots:
       css-what: 6.2.2
       csso: 5.0.5
       picocolors: 1.1.1
-    optional: true
 
   svgo@4.0.0:
     dependencies:
@@ -12118,7 +12124,6 @@ snapshots:
       bare-path: 3.0.0
     transitivePeerDependencies:
       - bare-buffer
-    optional: true
 
   tar-stream@2.2.0:
     dependencies:
@@ -12773,7 +12778,6 @@ snapshots:
     dependencies:
       commander: 2.20.3
       cssfilter: 0.0.10
-    optional: true
 
   y18n@5.0.8: {}
 
