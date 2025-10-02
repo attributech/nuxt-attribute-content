@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.1
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.0...v0.1.1)
+
+### 🚀 Enhancements
+
+- **caching:** Adding nuxt-ipx-cache ([28eb40c](https://github.com/attributech/nuxt-attribute-content/commit/28eb40c))
+
+### 🏡 Chore
+
+- Adding .cache folder to gitignore ([71f7c04](https://github.com/attributech/nuxt-attribute-content/commit/71f7c04))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.0
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.0.13...v0.1.0)
