@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.2
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.1...v0.1.2)
+
+### 🩹 Fixes
+
+- Adding nuxt-ipx-cache as regular dependency ([5341d82](https://github.com/attributech/nuxt-attribute-content/commit/5341d82))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.1
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.0...v0.1.1)
