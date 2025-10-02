@@ -26,3 +26,6 @@ dist
 
 # Vitest coverage
 coverage
+
+# Caches
+.cache
