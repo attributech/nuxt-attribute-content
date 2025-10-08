@@ -1,6 +1,35 @@
 # Changelog
 
 
+## v0.1.3
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.2...v0.1.3)
+
+### 🚀 Enhancements
+
+- Adding conventional commits configuration ([cfb0463](https://github.com/attributech/nuxt-attribute-content/commit/cfb0463))
+- **seo:** Adding @nuxtjs/seo ([d873956](https://github.com/attributech/nuxt-attribute-content/commit/d873956))
+- Adding nuxt3-interpolation ([d2ce01d](https://github.com/attributech/nuxt-attribute-content/commit/d2ce01d))
+- Replacing git-conventional-commits with commitlint ([1c1e010](https://github.com/attributech/nuxt-attribute-content/commit/1c1e010))
+
+### 🩹 Fixes
+
+- **images:** Using attributes as suggested by nuxt-lazyimages docs ([b0a01bd](https://github.com/attributech/nuxt-attribute-content/commit/b0a01bd))
+- Ignoring linter warnings for vue/no-v-html ([b135884](https://github.com/attributech/nuxt-attribute-content/commit/b135884))
+- Adding missing newline ([2abcbc9](https://github.com/attributech/nuxt-attribute-content/commit/2abcbc9))
+
+### 💅 Refactors
+
+- Using zod v4 ([676e2f6](https://github.com/attributech/nuxt-attribute-content/commit/676e2f6))
+
+### 🏡 Chore
+
+- Installing updates ([13be15c](https://github.com/attributech/nuxt-attribute-content/commit/13be15c))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.2
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.1...v0.1.2)
