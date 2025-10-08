@@ -14,9 +14,12 @@
     "release": "npm run lint && npm run test && changelogen --release && npm publish && git push --follow-tags",
     "test": "vitest run",
     "test:watch": "vitest watch --ui --coverage.enabled=true --coverage.reporter=html",
-    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@nuxt/eslint": "latest",
     "@nuxt/test-utils": "^3.19.2",
     "@nuxtjs/seo": "3.2.2",
@@ -25,6 +28,7 @@
     "@vue/test-utils": "^2.4.6",
     "changelogen": "^0.6.2",
     "eslint": "^9.34.0",
+    "husky": "^9.1.7",
     "nuxt": "^4.1.1",
     "playwright": "^1.55.0",
     "playwright-core": "^1.55.0",
