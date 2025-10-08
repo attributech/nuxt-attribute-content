@@ -3,10 +3,13 @@
     <h1>useRenderedMarkdown()</h1>
     <section>
       <h2>Rendered Markdown from Content</h2>
+
+      <!-- eslint-disable vue/no-v-html -->
       <div
         class="rendered-content"
         v-html="renderedMarkdown(text)"
       />
+      <!-- eslint-enable vue/no-v-html -->
     </section>
 
     <section>
@@ -20,10 +23,12 @@
           placeholder="Enter your markdown here..."
         />
         <h3>Output:</h3>
+        <!-- eslint-disable vue/no-v-html -->
         <div
           class="rendered-content"
           v-html="renderedMarkdown(customMarkdown)"
         />
+        <!-- eslint-enable vue/no-v-html -->
       </div>
     </section>
 
