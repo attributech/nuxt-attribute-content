@@ -37,7 +37,8 @@
     "typescript": "^5.9.3",
     "vitest": "^3.2.4",
     "vue": "latest",
-    "vue-tsc": "^3.1.1"
+    "vue-tsc": "^3.1.1",
+    "zod": "^4.1.12"
   },
   "dependencies": {
     "@nuxt/content": "^3.7.1",
