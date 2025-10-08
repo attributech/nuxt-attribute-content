@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     'nuxt-lazyimages',
     '@nuxt/eslint',
     'nuxt-ipx-cache',
+    'nuxt3-interpolation',
   ],
   devtools: { enabled: true },
   runtimeConfig: {
