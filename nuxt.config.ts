@@ -4,6 +4,7 @@ import { removeSizes, forceCurrentColor } from 'nuxt-svg-icon-sprite/processors'
 export default defineNuxtConfig({
   modules: [
     'nuxt-svg-icon-sprite',
+    '@nuxtjs/seo',
     '@nuxt/content',
     '@nuxt/image',
     'nuxt-lazyimages',
