@@ -1,11 +1,12 @@
 <template>
   <img
+    :data-src="src"
     :data-srcset="srcset"
     :data-aspectratio="aspectRatio"
     :data-parent-fit="parentFit"
+    data-sizes="auto"
     :alt="alt"
     class="lazyload"
-    sizes="auto"
   >
 </template>
 
