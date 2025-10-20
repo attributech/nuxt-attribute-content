@@ -34,6 +34,7 @@
     "playwright-core": "^1.56.0",
     "postcss-custom-media": "^11.0.6",
     "postcss-nested": "^7.0.2",
+    "svgo": "^4.0.0",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4",
     "vue": "latest",
