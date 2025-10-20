@@ -3,18 +3,18 @@ import { optimize } from 'svgo'
 import { parse } from 'node-html-parser'
 
 /**
- * Runs svgo on sprite
+ * Runs svgo on svg
  */
 export const svgoProcessor = defineProcessor(() => {
-  return (sprite) => {
-    const result = optimize(sprite.toString(), {
+  return (svg) => {
+    const result = optimize(svg.toString(), {
       multipass: true,
     })
     const dom = parse(result.data)
     const optimizedSvg = dom.querySelector('svg')
-    const spriteContents = optimizedSvg?.innerHTML
-    if (spriteContents !== undefined) {
-      sprite.innerHTML = spriteContents
+    const svgContents = optimizedSvg?.innerHTML
+    if (svgContents !== undefined) {
+      svg.innerHTML = svgContents
     }
   }
 })
