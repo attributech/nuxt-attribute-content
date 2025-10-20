@@ -1,4 +1,4 @@
-import { removeSizes, forceCurrentColor } from 'nuxt-svg-icon-sprite/processors'
+import { removeSizes } from 'nuxt-svg-icon-sprite/processors'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
     sprites: {
       default: {
         importPatterns: ['./assets/icons/*.svg'],
-        processSpriteSymbol: [removeSizes(), forceCurrentColor()],
+        processSpriteSymbol: [removeSizes()],
       },
       original: {
         importPatterns: ['./assets/icons/**/*.svg'],
