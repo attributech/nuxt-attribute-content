@@ -1,14 +1,20 @@
 import { defineProcessor } from 'nuxt-svg-icon-sprite/processors'
 import { optimize } from 'svgo'
+import { parse } from 'node-html-parser'
 
 /**
- * Runs svgo on svgs
+ * Runs svgo on sprite
  */
 export const svgoProcessor = defineProcessor(() => {
-  return (svg) => {
-    const result = optimize(svg.innerHTML, {
+  return (sprite) => {
+    const result = optimize(sprite.toString(), {
       multipass: true,
     })
-    svg.innerHTML = result.data
+    const dom = parse(result.data)
+    const optimizedSvg = dom.querySelector('svg')
+    const spriteContents = optimizedSvg?.innerHTML
+    if (spriteContents !== undefined) {
+      sprite.innerHTML = spriteContents
+    }
   }
 })

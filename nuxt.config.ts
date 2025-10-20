@@ -54,6 +54,8 @@ export default defineNuxtConfig({
         importPatterns: ['./assets/icons/**/*.svg'],
         processSpriteSymbol: [
           removeSizes(),
+        ],
+        processSprite: [
           svgoProcessor(),
         ],
       },
