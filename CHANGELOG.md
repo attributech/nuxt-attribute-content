@@ -5,6 +5,14 @@
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.4...v0.1.5)
 
+### 🏡 Chore
+
+- **release:** V0.1.5 ([af08907](https://github.com/attributech/nuxt-attribute-content/commit/af08907))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.4
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.3...v0.1.4)
@@ -331,4 +339,3 @@
 ### ❤️ Contributors
 
 - Lukas Von Blarer <luk@attribute.ch>
-
