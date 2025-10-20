@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.1.4
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.3...v0.1.4)
+
+### 🚀 Enhancements
+
+- **icons:** Adding svgo processor to optimize svgs ([558c2e5](https://github.com/attributech/nuxt-attribute-content/commit/558c2e5))
+- **ai:** Setting up openspec with claude ([37a6160](https://github.com/attributech/nuxt-attribute-content/commit/37a6160))
+
+### 🩹 Fixes
+
+- **icons:** Disable currentcolor fill enforcement ([c208e49](https://github.com/attributech/nuxt-attribute-content/commit/c208e49))
+
+### ✅ Tests
+
+- **icons:** Add svgoProcessor tests with full coverage ([b7114c9](https://github.com/attributech/nuxt-attribute-content/commit/b7114c9))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.3
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.2...v0.1.3)
