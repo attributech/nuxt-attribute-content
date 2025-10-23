@@ -2,7 +2,7 @@
   "name": "nuxt-attribute-content",
   "type": "module",
   "version": "0.1.5",
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.19.0",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
