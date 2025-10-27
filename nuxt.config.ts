@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     'nuxt-ipx-cache',
     'nuxt3-interpolation',
+    '@unlazy/nuxt',
   ],
   devtools: { enabled: true },
   runtimeConfig: {

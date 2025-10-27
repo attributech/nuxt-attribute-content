@@ -1,13 +1,11 @@
 <template>
-  <img
-    :data-src="src"
-    :data-srcset="srcset"
-    :data-aspectratio="aspectRatio"
-    :data-parent-fit="parentFit"
-    data-sizes="auto"
+  <UnLazyImage
+    :src
+    :src-set
     :alt="alt"
-    class="lazyload"
-  >
+    loading="lazy"
+    auto-sizes
+  />
 </template>
 
 <script setup lang="ts">
@@ -27,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   parentFit: false,
 })
 
-const srcset = computed<string>(() => {
+const srcSet = computed<string>(() => {
   const img = useImage()
   return img.getSizes(props.src, {
     sizes:
