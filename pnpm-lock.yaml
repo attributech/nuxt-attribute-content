@@ -35,9 +35,6 @@ importers:
       nuxt-ipx-cache:
         specifier: 1.0.6
         version: 1.0.6(defu@6.1.4)(ipx@2.1.1(@netlify/blobs@9.1.2)(db0@0.3.4(better-sqlite3@12.4.1))(ioredis@5.8.1))(magicast@0.3.5)
-      nuxt-lazyimages:
-        specifier: ^0.2.1
-        version: 0.2.1(magicast@0.3.5)
       nuxt-svg-icon-sprite:
         specifier: 2.0.2
         version: 2.0.2
@@ -4575,9 +4572,6 @@ packages:
     peerDependencies:
       defu: ^6.1.4
       ipx: 3.x || 2.x
-
-  nuxt-lazyimages@0.2.1:
-    resolution: {integrity: sha512-eKXtTPYyaHGcOcU/j1KSd4d9XV92owk9Xfhk8IjEv9Xl4JNkwXdlkOJ1UorosaQhIVJP6aHjNmaRDD0vILhRLQ==}
 
   nuxt-link-checker@4.3.4:
     resolution: {integrity: sha512-pWAfGobX+a8eHF+wyO0SZXogzlaJtZ05NrqaCACBmpV1XdPgesE762m8ZK+4kHMt2bpt8JNQHc8LfltYDNrWCw==}
@@ -11499,12 +11493,6 @@ snapshots:
       '@nuxt/kit': 3.19.3(magicast@0.3.5)
       defu: 6.1.4
       ipx: 2.1.1(@netlify/blobs@9.1.2)(db0@0.3.4(better-sqlite3@12.4.1))(ioredis@5.8.1)
-    transitivePeerDependencies:
-      - magicast
-
-  nuxt-lazyimages@0.2.1(magicast@0.3.5):
-    dependencies:
-      '@nuxt/kit': 3.19.3(magicast@0.3.5)
     transitivePeerDependencies:
       - magicast
 

@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/content',
     '@nuxt/image',
-    'nuxt-lazyimages',
     '@nuxt/eslint',
     'nuxt-ipx-cache',
     'nuxt3-interpolation',
