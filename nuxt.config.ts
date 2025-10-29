@@ -17,6 +17,13 @@ export default defineNuxtConfig({
     name: 'nuxt-attribute-content',
   },
   devtools: { enabled: true },
+  content: {
+    build: {
+      transformers: [
+        '#layers/nuxt-attribute-content/transformers/imageDimensions',
+      ],
+    },
+  },
   runtimeConfig: {
     public: {
       mapbox: {

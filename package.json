@@ -47,6 +47,7 @@
     "@nuxtjs/leaflet": "^1",
     "better-sqlite3": "^12.4.1",
     "happy-dom": "^18.0.1",
+    "image-meta": "^0.2.2",
     "markdown-it": "^14.1.0",
     "nuxt-ipx-cache": "1.0.6",
     "nuxt-lazyimages": "^0.2.1",

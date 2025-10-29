@@ -7,6 +7,8 @@
     data-sizes="auto"
     :alt="alt"
     class="lazyload"
+    :width
+    :height
   >
 </template>
 
@@ -16,6 +18,8 @@ interface Props {
   alt: string
   sizes?: string
   loading?: string
+  width?: number
+  height?: number
   aspectRatio?: string | boolean
   parentFit?: string | boolean
 }
