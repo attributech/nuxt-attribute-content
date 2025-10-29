@@ -7,6 +7,8 @@
     :height
     :loading
     auto-sizes
+    :thumbhash="thumbhash"
+    :style
   />
 </template>
 
@@ -18,6 +20,7 @@ interface Props {
   loading?: 'lazy' | 'eager'
   width?: number
   height?: number
+  thumbhash?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -35,5 +38,12 @@ const srcSet = computed<string>(() => {
       quality: 60,
     },
   }).srcset
+})
+
+const style = computed<string | false>(() => {
+  if (props.width !== undefined && props.height !== undefined) {
+    return `aspect-ratio: ${props.width}/${props.height};`
+  }
+  return false
 })
 </script>
