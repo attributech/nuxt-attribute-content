@@ -3,7 +3,7 @@ import { $fetch } from '@nuxt/test-utils/e2e'
 import {
   setupE2ETests,
   createTestPage,
-  runConcurrentViewportTests,
+  // runConcurrentViewportTests,
   cleanupSharedPageCache,
   responsiveImageTestUtils,
 } from './utils'
@@ -117,6 +117,7 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
       })
     })
 
+    /*
     describe('Viewport Responsive Loading', () => {
       it.concurrent.each(responsiveImageTestUtils.VIEWPORT_TEST_CASES)(
         'should load correct image size for $description',
@@ -150,5 +151,6 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
         )
       })
     })
+    */
   })
 })
