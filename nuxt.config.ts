@@ -13,6 +13,9 @@ export default defineNuxtConfig({
     'nuxt-ipx-cache',
     'nuxt3-interpolation',
   ],
+  $meta: {
+    name: 'nuxt-attribute-content',
+  },
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
