@@ -14,7 +14,17 @@ export default defineNuxtConfig({
     'nuxt3-interpolation',
     '@unlazy/nuxt',
   ],
+  $meta: {
+    name: 'nuxt-attribute-content',
+  },
   devtools: { enabled: true },
+  content: {
+    build: {
+      transformers: [
+        '#layers/nuxt-attribute-content/transformers/imageDimensions',
+      ],
+    },
+  },
   runtimeConfig: {
     public: {
       mapbox: {

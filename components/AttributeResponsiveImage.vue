@@ -3,6 +3,8 @@
     :src
     :src-set
     :alt="alt"
+    :width
+    :height
     loading="lazy"
     auto-sizes
   />
@@ -14,6 +16,8 @@ interface Props {
   alt: string
   sizes?: string
   loading?: string
+  width?: number
+  height?: number
   aspectRatio?: string | boolean
   parentFit?: string | boolean
 }
