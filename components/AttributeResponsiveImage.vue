@@ -18,15 +18,11 @@ interface Props {
   loading?: 'lazy' | 'eager'
   width?: number
   height?: number
-  aspectRatio?: string | boolean
-  parentFit?: string | boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   sizes: '100vw',
   loading: 'lazy',
-  aspectRatio: false,
-  parentFit: false,
 })
 
 const srcSet = computed<string>(() => {
