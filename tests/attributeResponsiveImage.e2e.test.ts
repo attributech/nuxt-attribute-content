@@ -40,7 +40,7 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
 
       // Check lazy loading setup
       expect(html).toContain('<img')
-      expect(html).toContain('class="lazyload"')
+      expect(html).toContain('loading="lazy"')
       expect(html).toContain('alt="Placeholder"')
     })
 
@@ -63,10 +63,6 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
 
       // Check lazy loading attributes
       expect(html).toContain('sizes="auto"')
-      responsiveImageTestUtils.assertDataAttributes(html, {
-        'aspectratio': 'false',
-        'parent-fit': 'false',
-      })
     })
 
     it('should reference the correct test image', async () => {
@@ -88,7 +84,7 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
           expect(alt).toBe('Placeholder')
 
           // Check data-srcset content
-          const dataSrcset = await img.getAttribute('data-srcset')
+          const dataSrcset = await img.getAttribute('srcset')
           expect(dataSrcset).toBeTruthy()
           const expectedContent = ['test.png', 'f_webp', '320w', '640w', '1280w', 'q_60']
           expectedContent.forEach((content) => {
@@ -98,12 +94,6 @@ describe('AttributeResponsiveImage E2E Tests', async () => {
           // Check sizes attribute is processed by lazysizes
           const sizes = await img.getAttribute('sizes')
           expect(sizes).toMatch(/^\d+px$/)
-
-          // Check data attributes
-          responsiveImageTestUtils.assertDataAttributes(await page.content(), {
-            'aspectratio': 'false',
-            'parent-fit': 'false',
-          })
         }
         finally {
           await page.close()
