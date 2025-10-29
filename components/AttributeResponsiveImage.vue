@@ -5,7 +5,7 @@
     :alt="alt"
     :width
     :height
-    loading="lazy"
+    :loading
     auto-sizes
   />
 </template>
@@ -15,7 +15,7 @@ interface Props {
   src: string
   alt: string
   sizes?: string
-  loading?: string
+  loading?: 'lazy' | 'eager'
   width?: number
   height?: number
   aspectRatio?: string | boolean
