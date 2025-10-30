@@ -24,7 +24,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  sizes: '100vw',
   loading: 'lazy',
 })
 
