@@ -1,5 +1,5 @@
 import { describe, it, expect, afterAll } from 'vitest'
-import { setup, $fetch, createPage } from '@nuxt/test-utils/e2e'
+import { setup, $fetch, createPage, url } from '@nuxt/test-utils/e2e'
 import type { Page } from 'playwright-core'
 
 /**
@@ -26,7 +26,6 @@ describe('Responsive Image E2E Tests', async () => {
       type: 'firefox',
     },
   })
-
   const pages: Page[] = []
 
   afterAll(async () => {
@@ -149,5 +148,77 @@ describe('Responsive Image E2E Tests', async () => {
       // Verify it's using the IPX image optimization
       expect(currentSrc).toContain('/_ipx/')
     })
+
+    it('should load an image at 640px viewport', async () => {
+      const result = await testImageAtViewport(640, 480)
+      expect(result.loadedWidth).toBe(640)
+    })
+
+    it('should load an image at 1280px viewport', async () => {
+      const result = await testImageAtViewport(1280, 1080)
+      expect(result.loadedWidth).toBe(1280)
+    })
+
+    it('should load an image at 1920px viewport', async () => {
+      const result = await testImageAtViewport(1920, 1080)
+      expect(result.loadedWidth).toBe(1920)
+    })
+
+    async function testImageAtViewport(width: number, height: number) {
+      // Create page without navigating yet
+      const page = await createPage()
+      pages.push(page) // Track for cleanup
+
+      // Set viewport first
+      await page.setViewportSize({ width, height })
+
+      // Mock window.onscroll BEFORE page navigation to bypass bot detection
+      await page.addInitScript(() => {
+        // Add onscroll property to make unlazy think this is not a bot
+        Object.defineProperty(window, 'onscroll', {
+          value: null,
+          writable: true,
+          configurable: true,
+        })
+      })
+
+      // Now navigate to the page
+      await page.goto(url('/responsive-image'))
+
+      // Wait for page to load
+      await page.waitForLoadState('load')
+      await page.waitForLoadState('networkidle')
+
+      // Give unlazy extra time to process
+      await page.waitForTimeout(3000)
+
+      // Get image information
+      const imageInfo = await page.evaluate(() => {
+        const img = document.querySelector('img')
+        if (!img) return null
+
+        return {
+          currentSrc: img.currentSrc,
+          src: img.src,
+          srcset: img.getAttribute('srcset'),
+          sizes: img.getAttribute('sizes'),
+          clientWidth: img.clientWidth,
+          naturalWidth: img.naturalWidth,
+          alt: img.alt,
+        }
+      })
+
+      expect(imageInfo).not.toBeNull()
+
+      // Extract loaded image width from URL
+      const widthMatch = imageInfo!.currentSrc.match(/w_(\d+)/)
+      const loadedWidth = widthMatch ? Number.parseInt(widthMatch[1]) : null
+
+      return {
+        viewport: { width, height },
+        loadedWidth,
+        ...imageInfo!,
+      }
+    }
   })
 })
