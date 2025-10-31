@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v0.1.6
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.5...v0.1.6)
+
+### 🚀 Enhancements
+
+- **ai:** Adding config for context7 and nuxt mcp ([f542f14](https://github.com/attributech/nuxt-attribute-content/commit/f542f14))
+- Setting name of nuxt layer ([a2f883c](https://github.com/attributech/nuxt-attribute-content/commit/a2f883c))
+- **images:** Nuxt content transformer to add image metadata ([adc9c45](https://github.com/attributech/nuxt-attribute-content/commit/adc9c45))
+- **images:** Use @unlazy/nuxt for image rendering ([5072f69](https://github.com/attributech/nuxt-attribute-content/commit/5072f69))
+
+### 🩹 Fixes
+
+- **playground:** Using NuxtLink for links on cards ([7ae835a](https://github.com/attributech/nuxt-attribute-content/commit/7ae835a))
+
+### 🏡 Chore
+
+- Updating changelog ([6e57733](https://github.com/attributech/nuxt-attribute-content/commit/6e57733))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.5
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.4...v0.1.5)
