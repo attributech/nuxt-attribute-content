@@ -1,164 +1,211 @@
-import { describe, it, afterAll, expect } from 'vitest'
-import { $fetch } from '@nuxt/test-utils/e2e'
-import {
-  setupE2ETests,
-  createTestPage,
-  runConcurrentViewportTests,
-  cleanupSharedPageCache,
-  responsiveImageTestUtils,
-} from './utils'
+import { describe, it, expect, afterAll } from 'vitest'
+import { setup, $fetch, createPage, url } from '@nuxt/test-utils/e2e'
+import type { Page } from 'playwright-core'
 
-describe('AttributeResponsiveImage E2E Tests', async () => {
-  await setupE2ETests({
+/**
+ * Responsive Image E2E Tests
+ */
+describe('Responsive Image E2E Tests', async () => {
+  await setup({
+    rootDir: '.playground',
+    browser: true,
     browserOptions: {
       type: 'firefox',
     },
   })
+  const pages: Page[] = []
 
-  const RESPONSIVE_IMAGE_PATH = '/responsive-image'
-  let cachedHtml: string
-
-  // Cleanup shared resources after all tests
   afterAll(async () => {
-    await cleanupSharedPageCache()
+    // Clean up any created pages
+    for (const page of pages) {
+      try {
+        await page.close()
+      }
+      catch {
+        // Ignore errors during cleanup
+      }
+    }
   })
 
-  // Cache HTML for multiple tests to avoid repeated fetches
-  const getPageHtml = async () => {
-    if (!cachedHtml) {
-      cachedHtml = await $fetch(RESPONSIVE_IMAGE_PATH)
-    }
-    return cachedHtml
-  }
+  describe('HTML Structure', () => {
+    it('should generate correct srcset and attributes', async () => {
+      const html = await $fetch('/responsive-image')
 
-  describe('HTML Structure Tests', () => {
-    it('should render the responsive image page with correct structure', async () => {
-      const html = await getPageHtml()
-
-      // Check page structure
-      expect(html).toContain('<h1>&lt;AttributeResponsiveImage&gt;</h1>')
-
-      // Check lazy loading setup
+      // Verify basic structure
       expect(html).toContain('<img')
-      expect(html).toContain('class="lazyload"')
       expect(html).toContain('alt="Placeholder"')
-    })
 
-    it('should generate responsive srcset with all required sizes', async () => {
-      const html = await getPageHtml()
-      responsiveImageTestUtils.assertResponsiveSrcset(html, responsiveImageTestUtils.ALL_RESPONSIVE_WIDTHS)
-    })
+      // Verify srcset is generated with expected widths
+      expect(html).toContain('320w')
+      expect(html).toContain('640w')
+      expect(html).toContain('1280w')
+      expect(html).toContain('1920w')
 
-    it('should have optimized image configuration', async () => {
-      const html = await getPageHtml()
-
-      // Check image optimizations
+      // Verify image optimization
       expect(html).toContain('f_webp')
       expect(html).toContain('q_60')
       expect(html).toContain('/_ipx/')
-    })
 
-    it('should have proper lazy loading attributes', async () => {
-      const html = await getPageHtml()
-
-      // Check lazy loading attributes
-      expect(html).toContain('sizes="auto"')
-      responsiveImageTestUtils.assertDataAttributes(html, {
-        'aspectratio': 'false',
-        'parent-fit': 'false',
-      })
-    })
-
-    it('should reference the correct test image', async () => {
-      const html = await getPageHtml()
-      expect(html).toMatch(/data-srcset="[^"]*test\.png[^"]*"/)
+      // Verify test image reference
+      expect(html).toMatch(/test\.png/)
     })
   })
 
-  describe('Lazysizes Browser Tests', () => {
-    describe.concurrent('Browser Functionality', () => {
-      it('should load and display images correctly', async () => {
-        const page = await createTestPage(RESPONSIVE_IMAGE_PATH)
+  describe('Browser Image Loading', () => {
+    /**
+     * Test that images load successfully in the browser.
+     * Due to bot detection, we cannot test viewport-specific image selection,
+     * but we can verify that images load with correct attributes and optimization.
+     */
+    it('should load images with correct attributes and optimization', async () => {
+      const page = await createPage('/responsive-image')
+      pages.push(page) // Track for cleanup
 
-        try {
-          const img = await responsiveImageTestUtils.getImageElement(page)
+      // Wait for page to load
+      await page.waitForLoadState('load')
+      await page.waitForLoadState('networkidle')
 
-          // Check alt text
-          const alt = await img.getAttribute('alt')
-          expect(alt).toBe('Placeholder')
+      // Give unlazy extra time to process
+      await page.waitForTimeout(3000)
 
-          // Check data-srcset content
-          const dataSrcset = await img.getAttribute('data-srcset')
-          expect(dataSrcset).toBeTruthy()
-          const expectedContent = ['test.png', 'f_webp', '320w', '640w', '1280w', 'q_60']
-          expectedContent.forEach((content) => {
-            expect(dataSrcset).toContain(content)
-          })
+      // Get image information
+      const imageInfo = await page.evaluate(() => {
+        const img = document.querySelector('img')
+        if (!img) return null
 
-          // Check sizes attribute is processed by lazysizes
-          const sizes = await img.getAttribute('sizes')
-          expect(sizes).toMatch(/^\d+px$/)
-
-          // Check data attributes
-          responsiveImageTestUtils.assertDataAttributes(await page.content(), {
-            'aspectratio': 'false',
-            'parent-fit': 'false',
-          })
-        }
-        finally {
-          await page.close()
+        return {
+          currentSrc: img.currentSrc,
+          src: img.src,
+          srcset: img.getAttribute('srcset'),
+          sizes: img.getAttribute('sizes'),
+          alt: img.alt,
+          naturalWidth: img.naturalWidth,
+          complete: img.complete,
         }
       })
 
-      it('should process images with lazysizes correctly', async () => {
-        const page = await createTestPage(RESPONSIVE_IMAGE_PATH)
+      expect(imageInfo).not.toBeNull()
 
-        try {
-          const img = await responsiveImageTestUtils.getImageElement(page)
-          await page.waitForTimeout(1000) // Wait for lazysizes processing
+      // Verify image loaded successfully
+      expect(imageInfo!.complete).toBe(true)
+      expect(imageInfo!.currentSrc).toBeTruthy()
 
-          const srcset = await img.getAttribute('srcset')
-          const src = await img.getAttribute('src')
-          expect(srcset || src).toBeTruthy()
-        }
-        finally {
-          await page.close()
-        }
-      })
+      // Verify correct attributes
+      expect(imageInfo!.alt).toBe('Placeholder')
+
+      // Verify srcset contains all expected widths
+      expect(imageInfo!.srcset).toContain('320w')
+      expect(imageInfo!.srcset).toContain('640w')
+      expect(imageInfo!.srcset).toContain('1280w')
+      expect(imageInfo!.srcset).toContain('1920w')
+
+      // Verify image optimization settings
+      expect(imageInfo!.currentSrc).toContain('f_webp')
+      expect(imageInfo!.currentSrc).toContain('q_60')
+      expect(imageInfo!.currentSrc).toContain('test.png')
+
+      // Verify sizes attribute is set (bot mode sets a fixed value)
+      expect(imageInfo!.sizes).toBeTruthy()
     })
 
-    describe('Viewport Responsive Loading', () => {
-      it.concurrent.each(responsiveImageTestUtils.VIEWPORT_TEST_CASES)(
-        'should load correct image size for $description',
-        async (testCase) => {
-          const page = await createTestPage(RESPONSIVE_IMAGE_PATH, {
-            width: testCase.width,
-            height: testCase.height,
-          })
+    /**
+     * Test image quality and format settings
+     */
+    it('should apply correct image quality and format', async () => {
+      const page = await createPage('/responsive-image')
+      pages.push(page)
 
-          try {
-            await responsiveImageTestUtils.verifyLoadedImageWidth(page, testCase.expectedImageWidth)
-          }
-          finally {
-            await page.close()
-          }
-        },
-      )
+      await page.waitForLoadState('load')
+      await page.waitForLoadState('networkidle')
+      await page.waitForTimeout(3000)
 
-      it('should load correct image sizes across all viewports concurrently', async () => {
-        await runConcurrentViewportTests(
-          RESPONSIVE_IMAGE_PATH,
-          responsiveImageTestUtils.VIEWPORT_TEST_CASES,
-          async (page, testCase) => {
-            await responsiveImageTestUtils.verifyLoadedImageWidth(page, testCase.expectedImageWidth)
-
-            // Check alt text directly
-            const img = await responsiveImageTestUtils.getImageElement(page)
-            const alt = await img.getAttribute('alt')
-            expect(alt).toBe('Placeholder')
-          },
-        )
+      const currentSrc = await page.evaluate(() => {
+        const img = document.querySelector('img')
+        return img ? img.currentSrc : null
       })
+
+      expect(currentSrc).toBeTruthy()
+
+      // Verify WebP format
+      expect(currentSrc).toContain('f_webp')
+
+      // Verify quality setting
+      expect(currentSrc).toContain('q_60')
+
+      // Verify it's using the IPX image optimization
+      expect(currentSrc).toContain('/_ipx/')
     })
+
+    it('should load an image at 640px viewport', async () => {
+      const result = await testImageAtViewport(640, 480)
+      expect(result.loadedWidth).toBe(640)
+    })
+
+    it('should load an image at 1280px viewport', async () => {
+      const result = await testImageAtViewport(1280, 1080)
+      expect(result.loadedWidth).toBe(1280)
+    })
+
+    it('should load an image at 1920px viewport', async () => {
+      const result = await testImageAtViewport(1920, 1080)
+      expect(result.loadedWidth).toBe(1920)
+    })
+
+    async function testImageAtViewport(width: number, height: number) {
+      // Create page without navigating yet
+      const page = await createPage()
+      pages.push(page) // Track for cleanup
+
+      // Set viewport first
+      await page.setViewportSize({ width, height })
+
+      // Mock window.onscroll BEFORE page navigation to bypass bot detection
+      await page.addInitScript(() => {
+        // Add onscroll property to make unlazy think this is not a bot
+        Object.defineProperty(window, 'onscroll', {
+          value: null,
+          writable: true,
+          configurable: true,
+        })
+      })
+
+      // Now navigate to the page
+      await page.goto(url('/responsive-image'))
+
+      // Wait for page to load
+      await page.waitForLoadState('load')
+      await page.waitForLoadState('networkidle')
+
+      // Give unlazy extra time to process
+      await page.waitForTimeout(3000)
+
+      // Get image information
+      const imageInfo = await page.evaluate(() => {
+        const img = document.querySelector('img')
+        if (!img) return null
+
+        return {
+          currentSrc: img.currentSrc,
+          src: img.src,
+          srcset: img.getAttribute('srcset'),
+          sizes: img.getAttribute('sizes'),
+          clientWidth: img.clientWidth,
+          naturalWidth: img.naturalWidth,
+          alt: img.alt,
+        }
+      })
+
+      expect(imageInfo).not.toBeNull()
+
+      // Extract loaded image width from URL
+      const widthMatch = imageInfo!.currentSrc.match(/w_(\d+)/)
+      const loadedWidth = widthMatch ? Number.parseInt(widthMatch[1]) : null
+
+      return {
+        viewport: { width, height },
+        loadedWidth,
+        ...imageInfo!,
+      }
+    }
   })
 })

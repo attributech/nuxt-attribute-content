@@ -1,15 +1,15 @@
 <template>
-  <img
-    :data-src="src"
-    :data-srcset="srcset"
-    :data-aspectratio="aspectRatio"
-    :data-parent-fit="parentFit"
-    data-sizes="auto"
+  <UnLazyImage
+    :src
+    :src-set
     :alt="alt"
-    class="lazyload"
     :width
     :height
-  >
+    :loading
+    auto-sizes
+    :thumbhash="thumbhash"
+    :style
+  />
 </template>
 
 <script setup lang="ts">
@@ -17,21 +17,17 @@ interface Props {
   src: string
   alt: string
   sizes?: string
-  loading?: string
+  loading?: 'lazy' | 'eager'
   width?: number
   height?: number
-  aspectRatio?: string | boolean
-  parentFit?: string | boolean
+  thumbhash?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  sizes: '100vw',
   loading: 'lazy',
-  aspectRatio: false,
-  parentFit: false,
 })
 
-const srcset = computed<string>(() => {
+const srcSet = computed<string>(() => {
   const img = useImage()
   return img.getSizes(props.src, {
     sizes:
@@ -41,5 +37,12 @@ const srcset = computed<string>(() => {
       quality: 60,
     },
   }).srcset
+})
+
+const style = computed<string | false>(() => {
+  if (props.width !== undefined && props.height !== undefined) {
+    return `aspect-ratio: ${props.width}/${props.height};`
+  }
+  return false
 })
 </script>
