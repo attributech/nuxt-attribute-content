@@ -5,62 +5,62 @@
 
     <section class="navigation">
       <div class="feature-grid">
-        <a
-          href="/icon"
+        <NuxtLink
+          to="/icon"
           class="feature-card"
         >
           <AttributeIcon name="arrow-right" />
           <h3>AttributeIcon</h3>
           <p>Icon component with various icon options</p>
-        </a>
+        </NuxtLink>
 
-        <a
-          href="/responsive-image"
+        <NuxtLink
+          to="/responsive-image"
           class="feature-card"
         >
           <h3>AttributeResponsiveImage</h3>
           <p>Responsive image component with optimized loading</p>
-        </a>
+        </NuxtLink>
 
-        <a
-          href="/title"
+        <NuxtLink
+          to="/title"
           class="feature-card"
         >
           <h3>ModulesTitle</h3>
           <p>Flexible title components with dynamic heading levels</p>
-        </a>
+        </NuxtLink>
 
-        <a
-          href="/menu-items"
+        <NuxtLink
+          to="/menu-items"
           class="feature-card"
         >
           <h3>useMenuItems()</h3>
           <p>Composable for fetching and managing menu items</p>
-        </a>
+        </NuxtLink>
 
-        <a
-          href="/rendered-markdown"
+        <NuxtLink
+          to="/rendered-markdown"
           class="feature-card"
         >
           <h3>useRenderedMarkdown()</h3>
           <p>Composable for rendering markdown content</p>
-        </a>
+        </NuxtLink>
 
-        <a
-          href="/block-dynamic"
+        <NuxtLink
+          to="/block-dynamic"
           class="feature-card"
         >
           <h3>AttributeDynamicComponent</h3>
           <p>A component to render dynamic componets based on data</p>
-        </a>
+        </NuxtLink>
 
-        <a
-          href="/map"
+        <NuxtLink
+          to="/map"
           class="feature-card"
         >
           <h3>AttributeMap</h3>
           <p>Interactive map component with markers and customizable tiles</p>
-        </a>
+        </NuxtLink>
       </div>
     </section>
   </main>

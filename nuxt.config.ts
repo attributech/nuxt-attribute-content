@@ -8,12 +8,22 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/content',
     '@nuxt/image',
-    'nuxt-lazyimages',
     '@nuxt/eslint',
     'nuxt-ipx-cache',
     'nuxt3-interpolation',
+    '@unlazy/nuxt',
   ],
+  $meta: {
+    name: 'nuxt-attribute-content',
+  },
   devtools: { enabled: true },
+  content: {
+    build: {
+      transformers: [
+        '#layers/nuxt-attribute-content/transformers/imageProcessing',
+      ],
+    },
+  },
   runtimeConfig: {
     public: {
       mapbox: {
@@ -42,11 +52,6 @@ export default defineNuxtConfig({
     },
     densities: [1],
     inject: true,
-  },
-  lazyimages: {
-    expFactor: 10,
-    loadMode: 3,
-    loadHidden: false,
   },
   svgIconSprite: {
     sprites: {
