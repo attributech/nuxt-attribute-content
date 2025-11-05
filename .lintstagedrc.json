@@ -1,0 +1,4 @@
+{
+  "*.{js,mjs,cjs,ts,mts,cts,vue}": "eslint --fix",
+  "*.{json,jsonc,json5}": "eslint --fix"
+}
