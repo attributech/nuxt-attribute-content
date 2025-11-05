@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import { svgoProcessor } from '../utils/svgoProcessor'
+import type { HTMLElement } from 'node-html-parser'
 
 describe('svgoProcessor', () => {
   describe('valid SVG optimization', () => {
-    it('should optimize a valid SVG string', () => {
+    it('should optimize a valid SVG string', async () => {
       const unoptimizedSvg = `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
   <rect x="10" y="10" width="80" height="80" fill="red" />
   <!-- This is a comment that should be removed -->
@@ -17,7 +18,7 @@ describe('svgoProcessor', () => {
       }
 
       const processor = svgoProcessor()
-      processor(mockSpriteObject)
+      await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
 
       // Verify the SVG was optimized (comments should be removed, and only innerHTML is stored)
       expect(mockSpriteObject.innerHTML).toBeTruthy()
@@ -28,7 +29,7 @@ describe('svgoProcessor', () => {
       expect(mockSpriteObject.innerHTML).not.toContain('</svg>')
     })
 
-    it('should maintain valid SVG structure', () => {
+    it('should maintain valid SVG structure', async () => {
       const validSvg = '<svg xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40"/></svg>'
 
       const mockSpriteObject = {
@@ -39,14 +40,14 @@ describe('svgoProcessor', () => {
       }
 
       const processor = svgoProcessor()
-      processor(mockSpriteObject)
+      await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
 
       // Should still contain the circle element (innerHTML is just the inner content)
       expect(mockSpriteObject.innerHTML).toContain('<circle')
       expect(mockSpriteObject.innerHTML).toBeTruthy()
     })
 
-    it('should apply multipass optimization', () => {
+    it('should apply multipass optimization', async () => {
       const svgWithRedundancy = `<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px">
   <g>
     <g>
@@ -63,7 +64,7 @@ describe('svgoProcessor', () => {
       }
 
       const processor = svgoProcessor()
-      processor(mockSpriteObject)
+      await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
 
       // Multipass should remove nested empty groups and optimize units
       expect(mockSpriteObject.innerHTML.length).toBeLessThan(svgWithRedundancy.length)
@@ -71,7 +72,7 @@ describe('svgoProcessor', () => {
       expect(mockSpriteObject.innerHTML).toBeTruthy()
     })
 
-    it('should produce deterministic output', () => {
+    it('should produce deterministic output', async () => {
       const svg = '<svg xmlns="http://www.w3.org/2000/svg"><rect width="50" height="50"/></svg>'
 
       const mockSpriteObject1 = {
@@ -90,15 +91,15 @@ describe('svgoProcessor', () => {
       const processor1 = svgoProcessor()
       const processor2 = svgoProcessor()
 
-      processor1(mockSpriteObject1)
-      processor2(mockSpriteObject2)
+      await processor1(mockSpriteObject1 as unknown as HTMLElement, { id: 'test1' })
+      await processor2(mockSpriteObject2 as unknown as HTMLElement, { id: 'test2' })
 
       expect(mockSpriteObject1.innerHTML).toBe(mockSpriteObject2.innerHTML)
     })
   })
 
   describe('edge cases', () => {
-    it('should handle empty string input', () => {
+    it('should handle empty string input', async () => {
       const mockSpriteObject = {
         innerHTML: '',
         toString() {
@@ -108,15 +109,13 @@ describe('svgoProcessor', () => {
 
       const processor = svgoProcessor()
 
-      expect(() => {
-        processor(mockSpriteObject)
-      }).not.toThrow()
+      await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
 
       // innerHTML should remain empty or be set to empty
       expect(mockSpriteObject.innerHTML).toBeDefined()
     })
 
-    it('should throw error for invalid SVG input', () => {
+    it('should throw error for invalid SVG input', async () => {
       const mockSpriteObject = {
         innerHTML: 'not valid svg at all',
         toString() {
@@ -127,12 +126,12 @@ describe('svgoProcessor', () => {
       const processor = svgoProcessor()
 
       // SVGO throws an error for invalid SVG
-      expect(() => {
-        processor(mockSpriteObject)
-      }).toThrow()
+      await expect(async () => {
+        await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
+      }).rejects.toThrow()
     })
 
-    it('should handle minimal SVG', () => {
+    it('should handle minimal SVG', async () => {
       const minimalSvg = '<svg></svg>'
       const mockSpriteObject = {
         innerHTML: minimalSvg,
@@ -142,7 +141,7 @@ describe('svgoProcessor', () => {
       }
 
       const processor = svgoProcessor()
-      processor(mockSpriteObject)
+      await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
 
       // innerHTML will be empty string since there's no content inside the svg
       expect(mockSpriteObject.innerHTML).toBeDefined()
@@ -156,7 +155,7 @@ describe('svgoProcessor', () => {
       expect(typeof processor).toBe('function')
     })
 
-    it('should modify sprite.innerHTML property', () => {
+    it('should modify sprite.innerHTML property', async () => {
       const originalSvg = '<svg xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="blue"/></svg>'
       const mockSpriteObject = {
         innerHTML: originalSvg,
@@ -166,14 +165,14 @@ describe('svgoProcessor', () => {
       }
 
       const processor = svgoProcessor()
-      processor(mockSpriteObject)
+      await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
 
       // innerHTML should be modified to contain only inner content
       expect(mockSpriteObject.innerHTML).not.toBe(originalSvg)
       expect(mockSpriteObject.innerHTML).toBeTruthy()
     })
 
-    it('should work with sprite objects containing additional properties', () => {
+    it('should work with sprite objects containing additional properties', async () => {
       const svgContent = '<svg xmlns="http://www.w3.org/2000/svg"><rect width="50" height="50"/></svg>'
       const mockSpriteObject = {
         innerHTML: svgContent,
@@ -185,7 +184,7 @@ describe('svgoProcessor', () => {
       }
 
       const processor = svgoProcessor()
-      processor(mockSpriteObject)
+      await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
 
       // Should process innerHTML without affecting other properties
       expect(mockSpriteObject.innerHTML).toBeTruthy()
@@ -193,7 +192,7 @@ describe('svgoProcessor', () => {
       expect(mockSpriteObject.metadata).toEqual({ name: 'test' })
     })
 
-    it('should be chainable with other processors', () => {
+    it('should be chainable with other processors', async () => {
       const svgContent = '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect/></svg>'
       const mockSpriteObject = {
         innerHTML: svgContent,
@@ -208,7 +207,7 @@ describe('svgoProcessor', () => {
         sprite.innerHTML = sprite.innerHTML.replace(/width="[^"]*"/, '')
       }
 
-      processor1(mockSpriteObject)
+      await processor1(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
       const result1 = mockSpriteObject.innerHTML
 
       processor2()(mockSpriteObject)
@@ -221,7 +220,7 @@ describe('svgoProcessor', () => {
   })
 
   describe('multipass optimization verification', () => {
-    it('should enable multipass option', () => {
+    it('should enable multipass option', async () => {
       const svgWithMultipleOptimizationOpportunities = `<svg xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="grad">
@@ -242,7 +241,7 @@ describe('svgoProcessor', () => {
       }
 
       const processor = svgoProcessor()
-      processor(mockSpriteObject)
+      await processor(mockSpriteObject as unknown as HTMLElement, { id: 'test' })
 
       // Multipass should have removed identity transform and optimized structure
       expect(mockSpriteObject.innerHTML.length).toBeLessThan(
