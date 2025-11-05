@@ -1,3 +1,5 @@
+import type { ImageMeta } from 'image-meta'
+
 export interface ImageFormat {
   format: string
   quality: number
@@ -8,6 +10,12 @@ export interface ImageConfiguration {
 }
 
 export type ImageConfigValue = ImageConfiguration | (() => ImageConfiguration)
+
+export interface ImageItem {
+  src: string
+  metadata?: ImageMeta
+  thumbhash?: string
+}
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {

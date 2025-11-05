@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 import { imageMeta, type ImageMeta } from 'image-meta'
 import { createCanvas, loadImage } from '@napi-rs/canvas'
 import { rgbaToThumbHash } from 'thumbhash'
-import type { ImageItem } from '../types/ImageItem'
+import type { ImageItem } from '../types'
 
 export async function processImage(imageItem: ImageItem): Promise<ImageItem> {
   const imageData = await readImage(imageItem.src)

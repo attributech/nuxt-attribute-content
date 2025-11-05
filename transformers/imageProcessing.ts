@@ -1,6 +1,6 @@
 import { defineTransformer, type TransformedContent } from '@nuxt/content'
 import { processImage } from '../utils/imageProcessing'
-import type { ImageItem } from '../types/ImageItem'
+import type { ImageItem } from '../types'
 
 export default defineTransformer({
   name: 'imageProcessing',
