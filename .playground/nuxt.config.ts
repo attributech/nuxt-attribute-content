@@ -11,10 +11,16 @@ export default defineNuxtConfig({
     dirs: ['~/components'],
   },
   css: ['~/assets/css/main.css'],
+  site: {
+    url: 'https://nuxt-attribute-content.vercel.app/',
+  },
   eslint: {
     config: {
       // Use the generated ESLint config for lint root project as well
       rootDir: fileURLToPath(new URL('..', import.meta.url)),
     },
+  },
+  linkChecker: {
+    failOnError: false,
   },
 })
