@@ -1,6 +1,49 @@
 # Changelog
 
 
+## v0.1.7
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.6...v0.1.7)
+
+### 🚀 Enhancements
+
+- **ai:** Adding config for context7 and nuxt mcp ([f542f14](https://github.com/attributech/nuxt-attribute-content/commit/f542f14))
+- Setting name of nuxt layer ([a2f883c](https://github.com/attributech/nuxt-attribute-content/commit/a2f883c))
+- **images:** Nuxt content transformer to add image metadata ([adc9c45](https://github.com/attributech/nuxt-attribute-content/commit/adc9c45))
+- **lint:** Adding lint-staged ([c751788](https://github.com/attributech/nuxt-attribute-content/commit/c751788))
+- **images:** Image formats and quality configurable ([f8ac1a8](https://github.com/attributech/nuxt-attribute-content/commit/f8ac1a8))
+- **images:** Providing multiple image formats using sources ([c67564a](https://github.com/attributech/nuxt-attribute-content/commit/c67564a))
+- **playground:** Adding site url and disabling link checker errors ([6f0bf33](https://github.com/attributech/nuxt-attribute-content/commit/6f0bf33))
+- **lint:** Switching to oxlint ([729896f](https://github.com/attributech/nuxt-attribute-content/commit/729896f))
+
+### 🩹 Fixes
+
+- **playground:** Using NuxtLink for links on cards ([7ae835a](https://github.com/attributech/nuxt-attribute-content/commit/7ae835a))
+- **images:** Sizes attribute ([bc9b7fb](https://github.com/attributech/nuxt-attribute-content/commit/bc9b7fb))
+
+### 💅 Refactors
+
+- **images:** Removing old content transformer ([4f538c1](https://github.com/attributech/nuxt-attribute-content/commit/4f538c1))
+- **types:** Moving all types to in index.d.ts ([2256ce6](https://github.com/attributech/nuxt-attribute-content/commit/2256ce6))
+
+### 🏡 Chore
+
+- Updating changelog ([6e57733](https://github.com/attributech/nuxt-attribute-content/commit/6e57733))
+- **release:** V0.1.6 ([5e1740f](https://github.com/attributech/nuxt-attribute-content/commit/5e1740f))
+- Removing unneeded dependency on shar ([7d22eb8](https://github.com/attributech/nuxt-attribute-content/commit/7d22eb8))
+
+### ✅ Tests
+
+- **images:** Fixing tests ([478185b](https://github.com/attributech/nuxt-attribute-content/commit/478185b))
+
+### 🎨 Styles
+
+- Fixing linter warnings ([077e6ae](https://github.com/attributech/nuxt-attribute-content/commit/077e6ae))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.6
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.5...v0.1.6)
