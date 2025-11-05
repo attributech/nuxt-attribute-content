@@ -2,12 +2,13 @@
   <UnLazyImage
     :src
     :src-set
-    :alt="alt"
+    :alt
     :width
     :height
     :loading
-    auto-sizes
-    :thumbhash="thumbhash"
+    :auto-sizes="!sizes"
+    :sizes
+    :thumbhash
     :style
   />
 </template>
