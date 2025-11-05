@@ -1,13 +1,17 @@
 export default defineAppConfig({
   attributeContent: {
     name: 'Nuxt Attribute Content',
+    images: {
+      formats: [
+        {
+          format: 'avif',
+          quality: 60,
+        },
+        {
+          format: 'webp',
+          quality: 75,
+        },
+      ],
+    },
   },
 })
-
-declare module '@nuxt/schema' {
-  interface AppConfigInput {
-    attributeContent?: {
-      name?: string
-    }
-  }
-}
