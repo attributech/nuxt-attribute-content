@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.8
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.7...v0.1.8)
+
+### 🩹 Fixes
+
+- **images:** Disable sources, since they are broken atm ([266d08f](https://github.com/attributech/nuxt-attribute-content/commit/266d08f))
+
+### ✅ Tests
+
+- Removing test from pre-push git hook ([91b3ba8](https://github.com/attributech/nuxt-attribute-content/commit/91b3ba8))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.7
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.6...v0.1.7)
