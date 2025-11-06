@@ -1,7 +1,6 @@
 <template>
   <UnLazyImage
     :src
-    :sources
     :src-set
     :alt
     :width
@@ -34,12 +33,13 @@ const props = withDefaults(defineProps<Props>(), {
 const appConfig = useAppConfig()
 
 const srcSet = computed<string | undefined>(() => {
-  if (props.sizes) {
-    const format = appConfig.attributeContent.images.formats.at(-1)
-    if (format !== undefined) {
-      return getSrcSet(format)
-    }
+  // @todo: see todo below regarding sources.
+  // if (props.sizes) {
+  const format = appConfig.attributeContent.images.formats.at(-1)
+  if (format !== undefined) {
+    return getSrcSet(format)
   }
+  // }
   return undefined
 })
 
@@ -55,27 +55,25 @@ const getSrcSet = (imageFormat: ImageFormat): string => {
   }).srcset
 }
 
+// @todo: using sources currently broken. too large images are being fetched
+/*
 interface ImageSource {
   type: string
   srcSet: string
   sizes?: string
 }
-
 const sources = computed<ImageSource[] | undefined>(() => {
   if (props.sizes) {
     return undefined
   }
   return appConfig.attributeContent.images.formats.map((imageFormat) => {
-    const source: ImageSource = {
+    return {
       type: `image/${imageFormat.format}`,
       srcSet: getSrcSet(imageFormat),
     }
-    if (props.sizes) {
-      source.sizes = props.sizes
-    }
-    return source
   })
 })
+*/
 
 const style = computed<false | string>(() => {
   if (props.width !== undefined && props.height !== undefined) {
