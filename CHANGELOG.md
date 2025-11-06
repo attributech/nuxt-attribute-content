@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.1.9
+
+[compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.8...v0.1.9)
+
+### 🚀 Enhancements
+
+- Module to build sveltia cms ([a34933f](https://github.com/attributech/nuxt-attribute-content/commit/a34933f))
+
+### 🩹 Fixes
+
+- **images:** Disable sources, since they are broken atm" ([8f3d8bb](https://github.com/attributech/nuxt-attribute-content/commit/8f3d8bb))
+
+### 🏡 Chore
+
+- **release:** V0.1.8 ([d09d548](https://github.com/attributech/nuxt-attribute-content/commit/d09d548))
+
+### ✅ Tests
+
+- **images:** Fixing tests ([ea24211](https://github.com/attributech/nuxt-attribute-content/commit/ea24211))
+- **images:** Fixing tests" ([bd480a4](https://github.com/attributech/nuxt-attribute-content/commit/bd480a4))
+
+### ❤️ Contributors
+
+- Lukas Von Blarer <luk@attribute.ch>
+
 ## v0.1.8
 
 [compare changes](https://github.com/attributech/nuxt-attribute-content/compare/v0.1.7...v0.1.8)
