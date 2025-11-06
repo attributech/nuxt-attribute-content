@@ -11,6 +11,7 @@
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
     "lint": "npx oxlint --type-aware && npx eslint",
+    "lint:fix": "npx oxlint --type-aware --fix && npx eslint --fix",
     "release": "npm run lint && npm run test && changelogen --release && npm publish && git push --follow-tags",
     "test": "vitest run",
     "test:watch": "vitest watch --ui --coverage.enabled=true --coverage.reporter=html",
